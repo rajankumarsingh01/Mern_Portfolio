@@ -100,16 +100,29 @@ export const login = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
+  // res
+  //   .status(200)
+  //   .cookie("token", "", {
+  //     httpOnly: true,
+  //     expires: new Date(Date.now()),
+  //   })
+  //   .json({
+  //     success: true,
+  //     message: "Logged Out!",
+  //   });
   res
-    .status(200)
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(Date.now()),
-    })
-    .json({
-      success: true,
-      message: "Logged Out!",
-    });
+  .status(200)
+  .cookie("token", "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    expires: new Date(Date.now()),
+  })
+  .json({
+    success: true,
+    message: "Logged Out!",
+  });
+
 });
 
 export const getUser = catchAsyncErrors(async (req, res, next) => {

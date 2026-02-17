@@ -23,7 +23,7 @@
 
 //     const getProject = async () => {
 //       await axios
-//         .get(`http://localhost:4000/api/v1/project/get/${id}`, {
+//         .get(`https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/get/${id}`, {
 //           withCredentials: true,
 //         })
 //         .then((res) => {
@@ -179,7 +179,7 @@ const ProjectView = () => {
     const getProject = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/v1/project/get/${id}`,
+          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/get/${id}`,
           { withCredentials: true }
         );
 

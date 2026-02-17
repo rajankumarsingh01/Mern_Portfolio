@@ -10,7 +10,7 @@
 //   useEffect(() => {
 //     const getMyProjects = async () => {
 //       const { data } = await axios.get(
-//         "http://localhost:4000/api/v1/project/getall",
+//         "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/getall",
 //         { withCredentials: true }
 //       );
 //       setProjects(data.projects);
@@ -98,7 +98,7 @@ const Portfolio = () => {
   useEffect(() => {
     const getMyProjects = async () => {
       const { data } = await axios.get(
-        "http://localhost:4000/api/v1/project/getall",
+        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/getall",
         { withCredentials: true }
       );
       setProjects(data.projects);

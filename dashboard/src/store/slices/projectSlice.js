@@ -92,7 +92,7 @@ export const getAllProjects = () => async (dispatch) => {
   dispatch(projectSlice.actions.getAllProjectsRequest());
   try {
     const response = await axios.get(
-      "http://localhost:4000/api/v1/project/getall",
+      "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/getall",
       { withCredentials: true }
     );
     dispatch(
@@ -110,7 +110,7 @@ export const addNewProject = (data) => async (dispatch) => {
   dispatch(projectSlice.actions.addNewProjectRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/project/add",
+      "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/add",
       data,
       {
         withCredentials: true,
@@ -129,7 +129,7 @@ export const deleteProject = (id) => async (dispatch) => {
   dispatch(projectSlice.actions.deleteProjectRequest());
   try {
     const response = await axios.delete(
-      `http://localhost:4000/api/v1/project/delete/${id}`,
+      `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/delete/${id}`,
       {
         withCredentials: true,
       }
@@ -146,7 +146,7 @@ export const updateProject = (id, newData) => async (dispatch) => {
   dispatch(projectSlice.actions.updateProjectRequest());
   try {
     const response = await axios.put(
-      `http://localhost:4000/api/v1/project/update/${id}`,
+      `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/update/${id}`,
       newData,
       {
         withCredentials: true,
