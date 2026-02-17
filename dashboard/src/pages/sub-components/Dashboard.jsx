@@ -123,7 +123,9 @@ const Dashboard = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button>Visit Portfolio</Button>
+                  <Button onClick={() => window.open("http://localhost:5174", "_blank")}>
+                    Visit Portfolio
+                  </Button>
                 </CardFooter>
               </Card>
               <Card className="flex flex-col justify-center">
