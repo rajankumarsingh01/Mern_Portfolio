@@ -10,8 +10,6 @@ A modern, fully responsive and production-ready Full Stack Developer Portfolio b
 ## 🌐 Live Demo
 
 🔗 Portfolio: https://rajankumarsingh.me/ 
-🔗 Admin Dashboard: https://your-dashboard-url.vercel.app  
-🔗 Backend API: https://your-backend-url.onrender.com  
 
 ---
 
