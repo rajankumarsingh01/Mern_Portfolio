@@ -123,7 +123,7 @@ const Dashboard = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
-                  <Button onClick={() => window.open("http://localhost:5174", "_blank")}>
+                  <Button onClick={() => window.open("https://rajankumarsingh.me/", "_blank")}>
                     Visit Portfolio
                   </Button>
                 </CardFooter>

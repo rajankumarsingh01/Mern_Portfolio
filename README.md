@@ -1,138 +1,205 @@
-# 🌐 Rajan Kumar Singh - Portfolio Website
+# 🚀 Rajan Kumar Singh - MERN Portfolio
 
-A modern and responsive Full Stack Developer Portfolio built using the MERN Stack.
 
-## 🚀 Live Preview
-Coming Soon...
+![Portfolio Banner](./screenshots/portfolio1.png)
+
+A modern, fully responsive and production-ready Full Stack Developer Portfolio built using the MERN Stack with an Admin Dashboard.
 
 ---
 
-## 👨‍💻 About Me
+## 🌐 Live Demo
 
-Hi, I'm Rajan Kumar Singh, a B.Tech Computer Science student and aspiring Full Stack Developer specializing in the MERN stack.
+🔗 Portfolio: https://rajankumarsingh.me/ 
+🔗 Admin Dashboard: https://your-dashboard-url.vercel.app  
+🔗 Backend API: https://your-backend-url.onrender.com  
 
-I build responsive, scalable, and user-friendly web applications and continuously improve my problem-solving skills through real-world projects.
+---
+
+## 👨‍💻 About The Project
+
+This is a complete Full Stack Portfolio Website with an integrated Admin Dashboard that allows dynamic content management.
+
+It includes authentication, protected routes, project management, Cloudinary file uploads, contact form handling, and production deployment.
+
+Built with scalability and performance in mind.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
+### 🎨 Frontend
 - React.js
 - Tailwind CSS
+- Redux Toolkit
 - Axios
-- React Router
+- React Router DOM
+- Vite
 
-### Backend
+### ⚙️ Backend
 - Node.js
 - Express.js
-- MongoDB
+- MongoDB Atlas
 - Mongoose
-
-### Other Tools
-- Git & GitHub
+- JWT Authentication
+- Cookie-based Auth
 - Cloudinary
-- Postman
+
+### ☁️ Deployment
+- Vercel (Frontend)
+- Render (Backend)
+- MongoDB Atlas (Database)
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
-- Responsive modern UI
-- Admin Dashboard
-- Project Management System
-- Image Upload via Cloudinary
-- Contact / Hire Me integration
-- Smooth Animations
-- Dynamic Project Rendering
-
----
-
-## 📂 Folder Structure
-
-```
-portfolio/
-│
-├── frontend/
-│   ├── src/
-│   └── package.json
-│
-├── backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   └── server.js
-│__ Dashboard/
-└── README.md
-```
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the repository
-
-```
-git clone https://github.com/your-username/your-repo-name.git
-```
-
-### 2️⃣ Install Backend Dependencies
-
-```
-cd backend
-npm install
-npm start
-```
-
-### 3️⃣ Install Frontend Dependencies
-
-```
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend runs on:
-```
-http://localhost:5173
-```
-
-Backend runs on:
-```
-http://localhost:5000
-```
+✅ Fully Responsive UI  
+✅ Secure JWT Authentication  
+✅ Cookie-based Authorization  
+✅ Admin Dashboard  
+✅ Project CRUD Management  
+✅ Resume & Avatar Upload (Cloudinary)  
+✅ Contact Message System  
+✅ Protected Routes  
+✅ Production Ready Setup  
+✅ Error Handling Middleware  
 
 ---
 
 ## 📸 Screenshots
 
-(Add your project screenshots here)
+
+
+### 📊 Admin Dashboard
+![Dashboard](./screenshots/portfolio3.png)
+
+### 📁 Projects Section
+![Projects](./screenshots/portfolio4.png)
+
 
 ---
 
-## 🎯 Future Improvements
+## 📂 Project Structure
 
-- Blog Section
-- Dark/Light Mode Toggle
-- Admin Authentication Enhancement
-- Deployment on Vercel / Render
+portfolio/
+│
+├── frontend/
+│ ├── src/
+│ └── package.json
+│
+├── dashboard/
+│ ├── src/
+│ └── package.json
+│
+├── backend/
+│ ├── controllers/
+│ ├── middlewares/
+│ ├── models/
+│ ├── routes/
+│ ├── utils/
+│ └── server.js
+│
+├── screenshots/
+│
+└── README.md
+
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in backend folder:
+
+
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET_KEY=your_secret_key
+COOKIE_EXPIRE=7
+CLOUDINARY_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+PORTFOLIO_URL= your portfolio url
+DASHBOARD_URL=https://your-dashboard-url.vercel.app
+
+
+---
+
+## 🚀 Installation Guide
+
+### 1️⃣ Clone Repository
+
+
+
+git clone https://github.com/rajankumarsingh01/Mern_Portfolio
+
+
+---
+
+### 2️⃣ Backend Setup
+
+
+
+cd backend
+npm install
+npm run dev
+
+
+---
+
+### 3️⃣ Frontend Setup
+
+
+
+cd frontend
+npm install
+npm run dev
+
+
+---
+
+### 4️⃣ Dashboard Setup
+
+
+
+cd dashboard
+npm install
+npm run dev
+
+
+---
+
+## 🔐 Authentication Flow
+
+- User Login → JWT Generated
+- Token stored in HTTPOnly Cookie
+- Protected Routes verified using middleware
+- Production-safe cookie configuration
+
+---
+
+## 📈 Future Improvements
+
+- Blog System
+- Dark / Light Mode
+- Role-Based Authentication
+- Performance Optimization
+- SEO Optimization
 
 ---
 
 ## 🤝 Connect With Me
 
-- 📧 Email: rajankrsingh200@gmail.com
-- 💼 LinkedIn: (Add your LinkedIn link)
-- 🐙 GitHub: (Add your GitHub link)
+🐙 GitHub: https://github.com/rajankumarsingh01  
 
 ---
 
-## ❤️ Made With Passion
+## ⭐ Show Your Support
 
-Made with dedication and continuous learning by Rajan Kumar Singh.
+If you like this project:
+
+⭐ Star the repository  
+🍴 Fork it  
+📢 Share it  
 
 ---
-
-## ⭐ If you like this project
-
-Give it a star on GitHub!
