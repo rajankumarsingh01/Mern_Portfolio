@@ -32,7 +32,7 @@ const ViewBuyers = () => {
     const fetchBuyers = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/v1/project/buyers/${id}`,
+          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/buyers/${id}`,
           {
             withCredentials: true,
           }

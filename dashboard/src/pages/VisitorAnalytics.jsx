@@ -126,7 +126,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     axios.get("http://localhost:4000/api/v1/visitor/analytics", { withCredentials: true })
+//     axios.get("https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/analytics", { withCredentials: true })
 //       .then(({ data }) => setAnalytics(data.analytics))
 //       .catch(console.log)
 //       .finally(() => setLoading(false));
@@ -407,7 +407,7 @@ const VisitorAnalytics = () => {
   useEffect(() => {
     axios
       .get(
-        "http://localhost:4000/api/v1/visitor/analytics",
+        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/analytics",
         { withCredentials: true }
       )
       .then((res) => {

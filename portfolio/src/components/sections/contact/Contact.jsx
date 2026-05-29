@@ -46,7 +46,7 @@ const Contact = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/message/send",
+        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/message/send",
         formData,
         { withCredentials: true, headers: { "Content-Type": "application/json" } }
       );

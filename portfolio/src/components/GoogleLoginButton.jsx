@@ -27,7 +27,7 @@
 //       const token = await result.user.getIdToken();
 
 //       const { data } = await axios.post(
-//         "http://localhost:4000/api/v1/customer/firebase-login",
+//         "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/customer/firebase-login",
 //         {},
 //         {
 //           headers: {
@@ -86,7 +86,7 @@ import { auth, provider } from "../firebase";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const API = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
+const API = import.meta.env.VITE_BACKEND_URL || "https://mern-portfolio-backend-ke5j.onrender.com";
 
 const GoogleLoginButton = ({ onLoginSuccess }) => {
   const handleLogin = async () => {

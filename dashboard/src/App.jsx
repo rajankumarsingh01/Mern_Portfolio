@@ -50,7 +50,7 @@
 //     const trackVisitor = async () => {
 //       try {
 //         await axios.post(
-//           "http://localhost:4000/api/v1/visitor/track",
+//           "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/track",
 //           {
 //             page: window.location.pathname,
 //           }
@@ -168,7 +168,7 @@ function App() {
     const trackVisitor = async () => {
       try {
         await axios.post(
-          "http://localhost:4000/api/v1/visitor/track",
+          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/track",
           {
             page: window.location.pathname,
           }

@@ -36,7 +36,7 @@ const Hero = () => {
     const getMyProfile = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/user/portfolio/me",
+          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/user/portfolio/me",
           { withCredentials: true }
         );
         if (data?.user) setUser(data.user);

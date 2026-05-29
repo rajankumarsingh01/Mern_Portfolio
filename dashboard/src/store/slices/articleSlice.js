@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "http://localhost:4000/api/v1/article";
+const API = "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/article";
 
 // ── Thunks ──────────────────────────────────────────────
 

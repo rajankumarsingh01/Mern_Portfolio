@@ -15,7 +15,7 @@ const ArticleView = () => {
   const fetchArticle = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/v1/article/${slug}`
+        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/article/${slug}`
       );
 
       setArticle(data.article);

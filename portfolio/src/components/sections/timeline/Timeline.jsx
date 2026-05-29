@@ -320,7 +320,7 @@ const Timeline = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/v1/timeline/getall", { withCredentials: true })
+      .get("https://mern-portfolio-backend-ke5j.onrender.com/api/v1/timeline/getall", { withCredentials: true })
       .then(({ data }) => { setTimeline(data.timelines); setLoaded(true); })
       .catch(console.log);
   }, []);

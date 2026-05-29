@@ -149,7 +149,7 @@ export const getAllCareerItems =
 
     try {
       const { data } = await axios.get(
-        "http://localhost:4000/api/v1/career/all",
+        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/all",
         {
           withCredentials: true,
         }
@@ -180,7 +180,7 @@ export const getSingleCareerItem =
 
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/v1/career/${id}`,
+        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/${id}`,
         {
           withCredentials: true,
         }
@@ -211,7 +211,7 @@ export const addCareerItem =
 
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/v1/career/add",
+        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/add",
         formData,
         {
           withCredentials: true,
@@ -250,7 +250,7 @@ export const updateCareerItem =
 
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/v1/career/update/${id}`,
+        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/update/${id}`,
         formData,
         {
           withCredentials: true,
@@ -288,7 +288,7 @@ export const deleteCareerItem =
 
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/v1/career/delete/${id}`,
+        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/delete/${id}`,
         {
           withCredentials: true,
         }

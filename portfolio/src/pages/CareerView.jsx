@@ -21,7 +21,7 @@
 //     const fetch = async () => {
 //       try {
 //         const { data } = await axios.get(
-//           `http://localhost:4000/api/v1/career/slug/${slug}`
+//           `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/slug/${slug}`
 //         );
 //         setCareer(data.career);
 //       } catch (err) {
@@ -675,7 +675,7 @@
 //     const fetchCareer = async () => {
 //       try {
 //         const { data } = await axios.get(
-//           `http://localhost:4000/api/v1/career/slug/${slug}`
+//           `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/slug/${slug}`
 //         );
 //         setCareer(data.career);
 //       } catch (err) {
@@ -1505,7 +1505,7 @@ const CareerView = () => {
     const fetchCareer = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:4000/api/v1/career/slug/${slug}`
+          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/slug/${slug}`
         );
         setCareer(data.career);
       } catch (err) {

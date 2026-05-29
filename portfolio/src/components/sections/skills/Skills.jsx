@@ -150,7 +150,7 @@
 //   useEffect(() => {
 //     const getMySkills = async () => {
 //       const { data } = await axios.get(
-//         "http://localhost:4000/api/v1/skill/getall",
+//         "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/getall",
 //         { withCredentials: true }
 //       );
 //       setSkills(data.skills);
@@ -629,7 +629,7 @@ const Skills = () => {
         setLoading(true);
 
         const { data } = await axios.get(
-          "http://localhost:4000/api/v1/skill/getall",
+          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/getall",
           {
             withCredentials: true,
           }
