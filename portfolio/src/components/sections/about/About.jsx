@@ -269,12 +269,53 @@ const About = () => {
           <span style={{fontSize:11,letterSpacing:".15em",color:"#4ade80",textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace"}}>About Me</span>
         </motion.div>
 
-        <h1 style={{fontFamily:"'Clash Display','Syne',sans-serif",fontWeight:700,fontSize:"clamp(34px,5.5vw,72px)",lineHeight:1.06,letterSpacing:"-.03em",color:"#fff",marginBottom:20}}>
+        {/* <h1 style={{fontFamily:"'Clash Display','Syne',sans-serif",fontWeight:700,fontSize:"clamp(34px,5.5vw,72px)",lineHeight:1.06,letterSpacing:"-.03em",color:"#fff",marginBottom:20}}>
           Building Digital{" "}
           <span style={{fontFamily:"'Instrument Serif',Georgia,serif",fontStyle:"italic",color:"#4ade80"}}>Experiences</span>
           <br/>
           <Typewriter words={["Beyond Just Code.","That Scale.","That Inspire.","That Matter."]}/>
-        </h1>
+        </h1> */}
+
+        <h1
+  style={{
+    fontFamily: "'Clash Display','Syne',sans-serif",
+    fontWeight: 700,
+    fontSize: "clamp(34px,5.5vw,72px)",
+    lineHeight: 1.06,
+    letterSpacing: "-.03em",
+    color: "#fff",
+    marginBottom: 20,
+
+    // 🔥 FIX: prevent layout shift
+    minHeight: "220px",
+    display: "block",
+  }}
+>
+  Building Digital{" "}
+  <span
+    style={{
+      fontFamily: "'Instrument Serif',Georgia,serif",
+      fontStyle: "italic",
+      color: "#4ade80",
+    }}
+  >
+    Experiences
+  </span>
+
+  <br />
+
+  {/* FIX WRAPPER */}
+  <div style={{ minHeight: "60px", marginTop: "10px" }}>
+    <Typewriter
+      words={[
+        "Beyond Just Code.",
+        "That Scale.",
+        "That Inspire.",
+        "That Matter.",
+      ]}
+    />
+  </div>
+</h1>
 
         <p style={{maxWidth:540,margin:"0 auto",fontSize:"clamp(13px,1.8vw,16px)",color:"rgba(255,255,255,.4)",lineHeight:1.8,fontFamily:"'JetBrains Mono',monospace"}}>
           Full-stack developer · AI explorer · crafting scalable products with a designer's eye and an engineer's precision.
