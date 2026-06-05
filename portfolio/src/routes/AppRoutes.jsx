@@ -1,23 +1,3 @@
-// import React from "react";
-// import { Routes, Route } from "react-router-dom";
-
-// import MainLayout from "../layouts/MainLayout";
-
-// import Home from "../pages/Home";
-// import ProjectView from "../pages/ProjectView";
-
-// const AppRoutes = () => {
-//   return (
-//     <Routes>
-//       <Route element={<MainLayout />}>
-//         <Route path="/" element={<Home />} />
-//         <Route path="/project/:id" element={<ProjectView />} />
-//       </Route>
-//     </Routes>
-//   );
-// };
-
-// export default AppRoutes;
 
 
 
@@ -65,6 +45,9 @@ import Career from "../components/sections/career/Career";
 import CareerView from "../pages/CareerView";
 
 
+import NotFound from "../pages/NotFound";
+
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -86,6 +69,8 @@ const AppRoutes = () => {
 
 <Route path="/career" element={<Career />} />
 <Route path="/career/:slug" element={<CareerView />} />
+
+<Route path="*" element={<NotFound />} />
 
       </Route>
     </Routes>
