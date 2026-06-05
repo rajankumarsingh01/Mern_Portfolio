@@ -74,3 +74,121 @@
       @apply bg-background text-foreground;
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* === HeroSkeleton Custom Animations === */
+
+/* Base shimmer — subtle green sweep */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(0, 255, 136, 0.09) 180px,
+    rgba(255, 255, 255, 0.04) 360px
+  );
+  background-size: 600px 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+
+/* Stronger green shimmer for icons */
+.skeleton-shimmer-green {
+  border: 1px solid rgba(0, 255, 136, 0.15);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 136, 0.04) 0px,
+    rgba(0, 255, 136, 0.12) 80px,
+    rgba(0, 255, 136, 0.04) 160px
+  );
+  background-size: 300px 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+
+/* Outline style buttons */
+.skeleton-outline {
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 136, 0.03) 0px,
+    rgba(0, 255, 136, 0.10) 120px,
+    rgba(0, 255, 136, 0.03) 240px
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.8s 0.2s infinite linear;
+}
+
+/* Filled green button skeleton */
+.skeleton-filled {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 136, 0.25) 0px,
+    rgba(0, 255, 136, 0.45) 120px,
+    rgba(0, 255, 136, 0.25) 240px
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.8s 0.4s infinite linear;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6); }
+  50%       { opacity: 0.6; box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(800px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.animate-scan-line { animation: scan-line 3.5s 0.5s infinite linear; }
+.animate-fade-in-up { animation: fade-in-up 0.4s ease both; }
+.animation-delay-75  { animation-delay: 75ms; }
+.animation-delay-150 { animation-delay: 150ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
