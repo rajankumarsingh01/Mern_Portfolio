@@ -49,11 +49,16 @@ import PortfolioAI from "./pages/PortfolioAI";
 import AppRoutes from "./routes/AppRoutes";
 
 
+import Terminal from "./components/terminal/Terminal";
+
+
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Router>
         <PortfolioAI />
+
+        <Terminal />
 
         <AppRoutes />
 
