@@ -2,9 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Gamepad2, X, RotateCcw } from "lucide-react";
 
-const HIGH_SCORE_KEY = "rajan_dev_runner_highscore";
-
-const OBSTACLE_LABELS = ["Bug", "404", "Merge Conflict", "Deadline", "NaN"];
+const HIGH_SCORE_KEY = "rajan_dev_flappy_highscore";
 
 const getHighScore = () => {
   try {
@@ -30,8 +28,8 @@ const EndlessRunner = () => {
   const stateRef = useRef(null);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [level, setLevel] = useState(1);
   const [gameOver, setGameOver] = useState(false);
-  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     setHighScore(getHighScore());
@@ -41,40 +39,41 @@ const EndlessRunner = () => {
     const canvas = canvasRef.current;
     const width = canvas.width;
     const height = canvas.height;
-    const groundY = height - 40;
 
     stateRef.current = {
       width,
       height,
-      groundY,
-      player: { x: 60, y: groundY - 30, w: 24, h: 30, vy: 0, jumping: false },
-      gravity: 0.9,
-      jumpForce: -14,
-      speed: 5,
-      obstacles: [],
+      bird: { x: 70, y: height / 2, w: 22, h: 22, vy: 0 },
+      gravity: 0.45,
+      flapForce: -7.2,
+      speed: 2.6,
+      pipes: [],
+      pipeGap: 130,
       spawnTimer: 0,
-      spawnInterval: 90,
+      spawnInterval: 100,
       frame: 0,
       score: 0,
+      level: 1,
+      levelFlashTimer: 0,
       alive: true,
+      started: false,
+      bgOffset: 0,
     };
     setScore(0);
+    setLevel(1);
     setGameOver(false);
   }, []);
 
-  const jump = useCallback(() => {
+  const flap = useCallback(() => {
     const s = stateRef.current;
     if (!s || !s.alive) return;
-    if (!s.player.jumping) {
-      s.player.vy = s.jumpForce;
-      s.player.jumping = true;
-    }
+    s.started = true;
+    s.bird.vy = s.flapForce;
   }, []);
 
   useEffect(() => {
     if (!open) return;
     resetGame();
-    setRunning(true);
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -83,95 +82,138 @@ const EndlessRunner = () => {
       const s = stateRef.current;
       if (!s) return;
 
-      if (s.alive) {
+      if (s.alive && s.started) {
         s.frame++;
+        s.bgOffset = (s.bgOffset + s.speed * 0.4) % 40;
 
-        // physics
-        s.player.vy += s.gravity;
-        s.player.y += s.player.vy;
-        if (s.player.y >= s.groundY - s.player.h) {
-          s.player.y = s.groundY - s.player.h;
-          s.player.vy = 0;
-          s.player.jumping = false;
-        }
+        s.bird.vy += s.gravity;
+        s.bird.y += s.bird.vy;
 
-        // difficulty ramp
-        s.speed = 5 + Math.min(6, s.frame / 300);
+        s.speed = 2.6 + Math.min(2.4, s.frame / 900) + s.level * 0.12;
 
-        // spawn obstacles
         s.spawnTimer++;
-        const interval = Math.max(45, s.spawnInterval - s.frame / 20);
+        const interval = Math.max(62, s.spawnInterval - s.level * 3);
         if (s.spawnTimer > interval) {
           s.spawnTimer = 0;
-          const label = OBSTACLE_LABELS[Math.floor(Math.random() * OBSTACLE_LABELS.length)];
-          s.obstacles.push({
-            x: s.width + 10,
-            y: s.groundY - 26,
-            w: 18 + label.length * 6,
-            h: 26,
-            label,
-          });
+          const gap = Math.max(96, s.pipeGap - s.level * 2);
+          const margin = 30;
+          const gapY = margin + Math.random() * (s.height - gap - margin * 2);
+          s.pipes.push({ x: s.width + 20, gapY, gap, w: 34, passed: false });
         }
 
-        // move obstacles + collision
-        s.obstacles.forEach((o) => (o.x -= s.speed));
-        s.obstacles = s.obstacles.filter((o) => o.x + o.w > 0);
+        const b = s.bird;
+        s.pipes.forEach((p) => (p.x -= s.speed));
+        s.pipes = s.pipes.filter((p) => p.x + p.w > -5);
 
-        const p = s.player;
-        for (const o of s.obstacles) {
-          if (
-            p.x < o.x + o.w &&
-            p.x + p.w > o.x &&
-            p.y < o.y + o.h &&
-            p.y + p.h > o.y
-          ) {
-            s.alive = false;
-            setGameOver(true);
-            setRunning(false);
-            const finalScore = Math.floor(s.score);
-            const hs = getHighScore();
-            if (finalScore > hs) {
-              saveHighScore(finalScore);
-              setHighScore(finalScore);
+        for (const p of s.pipes) {
+          if (!p.passed && p.x + p.w < b.x) {
+            p.passed = true;
+            s.score += 1;
+            setScore(s.score);
+
+            const newLevel = Math.floor(s.score / 6) + 1;
+            if (newLevel > s.level) {
+              s.level = newLevel;
+              s.levelFlashTimer = 40;
+              setLevel(newLevel);
             }
+          }
+
+          const hitX = b.x + b.w > p.x && b.x < p.x + p.w;
+          const hitY = b.y < p.gapY || b.y + b.h > p.gapY + p.gap;
+          if (hitX && hitY) {
+            s.alive = false;
           }
         }
 
-        s.score += 0.12;
-        setScore(Math.floor(s.score));
+        if (b.y < 0 || b.y + b.h > s.height) {
+          s.alive = false;
+        }
+
+        if (s.levelFlashTimer > 0) s.levelFlashTimer--;
+
+        if (!s.alive) {
+          setGameOver(true);
+          const finalScore = s.score;
+          const hs = getHighScore();
+          if (finalScore > hs) {
+            saveHighScore(finalScore);
+            setHighScore(finalScore);
+          }
+        }
       }
 
-      // ---- draw ----
       ctx.clearRect(0, 0, s.width, s.height);
 
-      // background
       ctx.fillStyle = "#0a0a0a";
       ctx.fillRect(0, 0, s.width, s.height);
 
-      // ground line
-      ctx.strokeStyle = "#22c55e55";
-      ctx.beginPath();
-      ctx.moveTo(0, s.groundY);
-      ctx.lineTo(s.width, s.groundY);
-      ctx.stroke();
+      ctx.strokeStyle = "rgba(34,197,94,0.06)";
+      ctx.lineWidth = 1;
+      for (let x = -40 + (s.bgOffset || 0); x < s.width; x += 40) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, s.height);
+        ctx.stroke();
+      }
 
-      // player
-      ctx.fillStyle = "#4ade80";
-      ctx.fillRect(s.player.x, s.player.y, s.player.w, s.player.h);
-
-      // obstacles
-      ctx.font = "11px monospace";
-      s.obstacles.forEach((o) => {
-        ctx.fillStyle = "#f87171";
-        ctx.fillRect(o.x, o.y, o.w, o.h);
-        ctx.fillStyle = "#0a0a0a";
-        ctx.fillText(o.label, o.x + 4, o.y + o.h / 2 + 4);
+      s.pipes.forEach((p) => {
+        ctx.fillStyle = "#0f2a1a";
+        ctx.strokeStyle = "#22c55e88";
+        ctx.lineWidth = 2;
+        ctx.fillRect(p.x, 0, p.w, p.gapY);
+        ctx.strokeRect(p.x, 0, p.w, p.gapY);
+        const bottomY = p.gapY + p.gap;
+        ctx.fillRect(p.x, bottomY, p.w, s.height - bottomY);
+        ctx.strokeRect(p.x, bottomY, p.w, s.height - bottomY);
+        ctx.fillStyle = "#16341f";
+        ctx.fillRect(p.x - 3, p.gapY - 10, p.w + 6, 10);
+        ctx.fillRect(p.x - 3, bottomY, p.w + 6, 10);
       });
 
-      // score
+      const b = s.bird;
+      ctx.save();
+      ctx.translate(b.x + b.w / 2, b.y + b.h / 2);
+      const angle = Math.max(-0.5, Math.min(0.9, b.vy / 12));
+      ctx.rotate(angle);
+      ctx.fillStyle = "#4ade80";
+      ctx.beginPath();
+      ctx.roundRect(-b.w / 2, -b.h / 2, b.w, b.h, 6);
+      ctx.fill();
+      ctx.fillStyle = "#0a0a0a";
+      ctx.font = "bold 10px monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("<>", 0, 1);
+      ctx.restore();
+      ctx.textAlign = "left";
+      ctx.textBaseline = "alphabetic";
+
       ctx.fillStyle = "#d1fae5";
       ctx.font = "14px monospace";
-      ctx.fillText(`Score: ${Math.floor(s.score)}`, 12, 20);
+      ctx.fillText(`Score: ${s.score}`, 12, 22);
+      ctx.fillStyle = "#4ade80";
+      ctx.fillText(`Level ${s.level}`, s.width - 82, 22);
+
+      if (!s.started) {
+        ctx.fillStyle = "rgba(0,0,0,0.35)";
+        ctx.fillRect(0, 0, s.width, s.height);
+        ctx.fillStyle = "#d1fae5";
+        ctx.font = "13px monospace";
+        ctx.textAlign = "center";
+        ctx.fillText("Tap / Space to start", s.width / 2, s.height / 2);
+        ctx.textAlign = "left";
+      }
+
+      if (s.levelFlashTimer > 0) {
+        ctx.fillStyle = `rgba(74,222,128,${s.levelFlashTimer / 200})`;
+        ctx.fillRect(0, 0, s.width, s.height);
+        ctx.fillStyle = "#0a0a0a";
+        ctx.font = "bold 20px monospace";
+        ctx.textAlign = "center";
+        ctx.fillText(`LEVEL ${s.level}!`, s.width / 2, s.height / 2);
+        ctx.textAlign = "left";
+      }
 
       rafRef.current = requestAnimationFrame(loop);
     };
@@ -188,35 +230,33 @@ const EndlessRunner = () => {
     const handleKey = (e) => {
       if (e.code === "Space" || e.code === "ArrowUp") {
         e.preventDefault();
-        jump();
+        flap();
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [open, jump]);
+  }, [open, flap]);
 
   const handleTap = () => {
     if (gameOver) {
       resetGame();
-      setRunning(true);
     } else {
-      jump();
+      flap();
     }
   };
 
   return (
     <>
-      {/* Trigger button */}
       <button
         onClick={() => setOpen(true)}
         aria-label="Play game"
         style={{
           position: "fixed",
-          bottom: 156,
-          right: 24,
+          bottom: "calc(clamp(16px, 5vw, 28px) + 132px)",
+          right: "clamp(14px, 4vw, 28px)",
           zIndex: 9998,
-          width: 52,
-          height: 52,
+          width: "clamp(44px, 12vw, 52px)",
+          height: "clamp(44px, 12vw, 52px)",
           borderRadius: "50%",
           background: "#0f0f0f",
           border: "1px solid #22c55e55",
@@ -289,7 +329,7 @@ const EndlessRunner = () => {
                 <canvas
                   ref={canvasRef}
                   width={580}
-                  height={260}
+                  height={320}
                   style={{ width: "100%", height: "auto", display: "block", cursor: "pointer" }}
                 />
 
@@ -309,12 +349,13 @@ const EndlessRunner = () => {
                     <span style={{ color: "#f87171", fontSize: 18, fontWeight: "bold" }}>
                       Game Over
                     </span>
-                    <span style={{ color: "#d1fae5", fontSize: 13 }}>Score: {score}</span>
+                    <span style={{ color: "#d1fae5", fontSize: 13 }}>
+                      Score: {score} · Level: {level}
+                    </span>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         resetGame();
-                        setRunning(true);
                       }}
                       style={{
                         marginTop: 6,
@@ -346,7 +387,7 @@ const EndlessRunner = () => {
                   borderTop: "1px solid #22c55e22",
                 }}
               >
-                Tap / Click / Space or ↑ to jump — dodge the bugs
+                Tap / Click / Space to flap — dodge the pipes
               </div>
             </motion.div>
           </motion.div>

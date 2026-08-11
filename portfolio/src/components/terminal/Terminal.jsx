@@ -143,12 +143,12 @@ const Terminal = () => {
         onClick={() => setOpen(true)}
         aria-label="Open terminal"
         style={{
-          position: "fixed",
-          bottom: 96,
-          right: 24,
+         position: "fixed",
+          bottom: "calc(clamp(16px, 5vw, 28px) + 66px)",
+          right: "clamp(14px, 4vw, 28px)",
           zIndex: 9998,
-          width: 52,
-          height: 52,
+          width: "clamp(44px, 12vw, 52px)",
+          height: "clamp(44px, 12vw, 52px)",
           borderRadius: "50%",
           background: "#0f0f0f",
           border: "1px solid #22c55e55",

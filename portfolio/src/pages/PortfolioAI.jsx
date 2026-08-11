@@ -243,7 +243,7 @@ const PortfolioAI = () => {
       `}</style>
 
       {/* ── FAB Button ──────────────────────────────────────────────────── */}
-      <div style={{ position: "fixed", bottom: 28, right: 28, zIndex: 1000 }}>
+     <div style={{ position: "fixed", bottom: "clamp(16px, 5vw, 28px)", right: "clamp(14px, 4vw, 28px)", zIndex: 1000 }}>
         <AnimatePresence>{actionToast && <ActionToast text={actionToast} />}</AnimatePresence>
 
         <motion.button
@@ -251,7 +251,7 @@ const PortfolioAI = () => {
           onClick={() => setOpen(o => !o)}
           whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.93 }}
           style={{
-            width: 58, height: 58, borderRadius: "50%", border: "none",
+           width: "clamp(50px, 13vw, 58px)", height: "clamp(50px, 13vw, 58px)", borderRadius: "50%", border: "none",
             background: open
               ? "rgba(8,12,18,0.97)"
               : "linear-gradient(135deg, #14532d, #22c55e)",
