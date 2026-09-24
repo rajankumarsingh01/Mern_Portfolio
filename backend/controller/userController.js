@@ -229,7 +229,10 @@ export const updatePassword = catchAsyncErrors(async (req, res, next) => {
 // });
 export const getUserForPortfolio = catchAsyncErrors(async (req, res, next) => {
   try {
-    const user = await User.findOne(); // get first user in DB
+      // Sirf public fields (phone, email, reset tokens API se bahar nahi jayenge)
+    const user = await User.findOne().select(
+      "fullName aboutMe avatar resume portfolioURL githubURL linkedInURL instagramURL facebookURL twitterURL"
+    );
 
     res.status(200).json({
       success: true,

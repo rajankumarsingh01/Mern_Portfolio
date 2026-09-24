@@ -1,0 +1,20 @@
+{
+  "user": {
+    "fullName": "Rajan Kumar Singh",
+    "aboutMe": "Full Stack MERN Developer focused on scalable applications, modern UI/UX, AI-powered web experiences, and Python-based automation.",
+    "avatar": {
+      "public_id": "PORTFOLIO AVATAR/ukxqwoft2lzlhgywgg0s",
+      "url": "https://res.cloudinary.com/dxceuicae/image/upload/v1771169479/PORTFOLIO%20AVATAR/ukxqwoft2lzlhgywgg0s.jpg"
+    },
+    "resume": {
+      "public_id": "PORTFOLIO RESUME/bawkbke0f97xz2vkasfw",
+      "url": "https://res.cloudinary.com/dxceuicae/image/upload/v1778258431/PORTFOLIO%20RESUME/bawkbke0f97xz2vkasfw.jpg"
+    },
+    "portfolioURL": "https://rajankumarsingh.me",
+    "githubURL": "https://github.com",
+    "linkedInURL": "https://www.linkedin.in/rajan-kumar-singh0",
+    "instagramURL": "https://instagram.com",
+    "facebookURL": "https://instagram.com",
+    "twitterURL": "https://instagram.co"
+  }
+}

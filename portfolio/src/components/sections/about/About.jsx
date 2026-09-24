@@ -144,7 +144,6 @@ const About = () => {
       overflow: "hidden",
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
         *{box-sizing:border-box;}
 
         /* ── layout ── */

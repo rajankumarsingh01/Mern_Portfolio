@@ -493,7 +493,6 @@ export default function Navbar() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@700;800&display=swap');
 
 /* ── Tokens ── */
 :root {

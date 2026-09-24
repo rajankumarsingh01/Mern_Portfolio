@@ -7,6 +7,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { loadRazorpay } from "@/lib/loadRazorpay";
 import { auth } from "../firebase";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 
@@ -283,6 +284,7 @@ const handleDownload = async () => {
         theme: { color: "#22c55e" },
         modal: { ondismiss: () => setLoading(false) },
       };
+           await loadRazorpay();
       new window.Razorpay(options).open();
     } catch (error) {
       toast.error(error?.response?.data?.message || "Payment failed");

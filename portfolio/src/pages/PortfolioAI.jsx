@@ -191,7 +191,6 @@ const PortfolioAI = () => {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Syne:wght@500;600;700&display=swap');
 
         .aria-scroll::-webkit-scrollbar { width: 3px; }
         .aria-scroll::-webkit-scrollbar-thumb { background: rgba(34,197,94,0.2); border-radius: 2px; }

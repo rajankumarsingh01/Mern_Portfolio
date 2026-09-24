@@ -1,5 +1,5 @@
 import { API_URL } from "@/config/api";
-
+import { optimizeImage, PLACEHOLDER_IMG } from "@/lib/img";
 
 
 import { Button } from "@/components/ui/button";
@@ -112,10 +112,12 @@ const Portfolio = () => {
                   <div className="overflow-hidden">
                     <img
                       src={
-                        element?.projectBanner?.url ||
-                        "https://via.placeholder.com/600x400"
+                        optimizeImage(element?.projectBanner?.url, 900) ||
+                        PLACEHOLDER_IMG
                       }
                       alt={element?.title || "Project"}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-64 object-cover 
                       transition-transform duration-700 
                       group-hover:scale-110"

@@ -1,77 +1,49 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import MainLayout from "../layouts/MainLayout";
+import Home from "../pages/Home";
+import Hero from "../components/sections/hero/Hero";
 
-import Home        from "../pages/Home";
-import ProjectView from "../pages/ProjectView";
+// Home ke alawa har page apne alag chunk me hai, jo visit karne par hi load hota hai
+const Projects = lazy(() => import("../components/sections/projects/Portfolio"));
+const Skills = lazy(() => import("../components/sections/skills/Skills"));
+const Contact = lazy(() => import("../components/sections/contact/Contact"));
+const About = lazy(() => import("../components/sections/about/About"));
+const Timeline = lazy(() => import("../components/sections/timeline/Timeline"));
+const Articles = lazy(() => import("../components/sections/articles/Articles"));
+const Career = lazy(() => import("../components/sections/career/Career"));
+const ProjectView = lazy(() => import("../pages/ProjectView"));
+const ArticleView = lazy(() => import("../pages/ArticleView"));
+const CareerView = lazy(() => import("../pages/CareerView"));
+const NotFound = lazy(() => import("../pages/NotFound"));
 
-// ⚠️ Component names MUST be PascalCase — lowercase names render as HTML tags, not components
-import Projects from "../components/sections/projects/Portfolio";
-import Skills   from "../components/sections/skills/Skills";
-import Contact  from "../components/sections/contact/Contact";
-import About    from "../components/sections/about/About";       // was: about (lowercase = broken)
-import Hero     from "../components/sections/hero/Hero";         // was: hero  (lowercase = broken)
-import Timeline from "../components/sections/timeline/Timeline";
-import ArticleView from "../pages/ArticleView";
+const RouteFallback = () => (
+  <div style={{ minHeight: "60vh", display: "grid", placeItems: "center" }}>
+    <div className="h-8 w-8 rounded-full border-2 border-green-500/30 border-t-green-500 animate-spin" />
+  </div>
+);
 
-// Uncomment when Articles component is ready:
-import Articles from "../components/sections/articles/Articles";
-
-
-
-import Career from "../components/sections/career/Career";
-import CareerView from "../pages/CareerView";
-
-
-import NotFound from "../pages/NotFound";
-
+const Page = ({ children }) => (
+  <Suspense fallback={<RouteFallback />}>{children}</Suspense>
+);
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path="/"         element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/skills"   element={<Skills />} />
-        <Route path="/contact"  element={<Contact />} />
-        <Route path="/about"    element={<About />} />
-        <Route path="/hero"     element={<Hero />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/article/:slug" element={<ArticleView />} />
-
-        {/* Uncomment when ready: */}
-        <Route path="/articles" element={<Articles />} />
-
-        <Route path="/project/:id" element={<ProjectView />} />
-
-
-<Route path="/career" element={<Career />} />
-<Route path="/career/:slug" element={<CareerView />} />
-
-<Route path="*" element={<NotFound />} />
-
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Page><Projects /></Page>} />
+        <Route path="/skills" element={<Page><Skills /></Page>} />
+        <Route path="/contact" element={<Page><Contact /></Page>} />
+        <Route path="/about" element={<Page><About /></Page>} />
+        <Route path="/hero" element={<Hero />} />
+        <Route path="/timeline" element={<Page><Timeline /></Page>} />
+        <Route path="/articles" element={<Page><Articles /></Page>} />
+        <Route path="/article/:slug" element={<Page><ArticleView /></Page>} />
+        <Route path="/project/:id" element={<Page><ProjectView /></Page>} />
+        <Route path="/career" element={<Page><Career /></Page>} />
+        <Route path="/career/:slug" element={<Page><CareerView /></Page>} />
+        <Route path="*" element={<Page><NotFound /></Page>} />
       </Route>
     </Routes>
   );

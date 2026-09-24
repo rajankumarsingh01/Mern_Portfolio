@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>OG Image Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000814; }
+  #card {
+    width: 1200px; height: 630px; position: relative; overflow: hidden;
+    background:
+      radial-gradient(700px 400px at 85% 15%, rgba(34,197,94,0.22), transparent 60%),
+      radial-gradient(600px 380px at 0% 100%, rgba(56,189,248,0.10), transparent 60%),
+      #000814;
+    font-family: 'Syne', 'Segoe UI', system-ui, sans-serif;
+    color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 84px;
+  }
+  #card::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+  .left { position: relative; z-index: 1; max-width: 660px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 20px; border-radius: 999px;
+    border: 1px solid rgba(34,197,94,0.4); background: rgba(34,197,94,0.1);
+    color: #4ade80; font-size: 22px; font-weight: 700; letter-spacing: 0.3px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 12px #22c55e; }
+  h1 { margin-top: 30px; font-size: 84px; line-height: 1.02; font-weight: 800; letter-spacing: -1.5px; }
+  h1 span { color: #22c55e; }
+  .role { margin-top: 22px; font-size: 36px; font-weight: 700; color: rgba(255,255,255,0.88); }
+  .tag { margin-top: 12px; font-size: 24px; color: rgba(255,255,255,0.55); font-weight: 700; }
+  .chips { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .chip {
+    font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-weight: 500;
+    font-size: 20px; padding: 8px 16px; border-radius: 10px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.85);
+  }
+  .url {
+    position: absolute; left: 84px; bottom: 44px; z-index: 1;
+    font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 22px; color: #4ade80;
+  }
+  .photo-wrap { position: relative; z-index: 1; width: 340px; height: 340px; flex: none; }
+  .photo-wrap::before {
+    content: ""; position: absolute; inset: -14px; border-radius: 50%;
+    background: conic-gradient(from 200deg, #22c55e, #38bdf8, #22c55e);
+    filter: blur(2px); opacity: 0.9;
+  }
+  .photo-wrap img {
+    position: relative; width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+    border: 8px solid #000814; display: block;
+  }
+</style>
+</head>
+<body>
+  <div id="card">
+    <div class="left">
+      <div class="badge"><span class="dot"></span>Open to opportunities</div>
+      <h1>Rajan <span>Kumar</span> Singh</h1>
+      <div class="role">Full Stack MERN Developer</div>
+      <div class="tag">Scalable web apps · AI integrations · Clean UI</div>
+      <div class="chips">
+        <span class="chip">React</span><span class="chip">Node.js</span><span class="chip">MongoDB</span><span class="chip">Express</span><span class="chip">AI / LLM</span>
+      </div>
+    </div>
+    <div class="photo-wrap"><img src="../public/Rajanprofile.jpeg" alt="Rajan Kumar Singh" /></div>
+    <div class="url">rajankumarsingh.me</div>
+  </div>
+</body>
+</html>
