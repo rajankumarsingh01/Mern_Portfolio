@@ -51,6 +51,7 @@ import AppRoutes from "./routes/AppRoutes";
 import EndlessRunner from "./components/game/EndlessRunner";
 
 import Terminal from "./components/terminal/Terminal";
+import VisitTracker from "./components/VisitTracker";
 
 
 function App() {

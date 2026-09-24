@@ -163,26 +163,7 @@ import UpdateCareer from "./pages/UpdateCareer";
 function App() {
   const dispatch = useDispatch();
 
-  // TRACK VISITOR
-  useEffect(() => {
-    const trackVisitor = async () => {
-      try {
-        await axios.post(
-          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/track",
-          {
-            page: window.location.pathname,
-          }
-        );
-      } catch (error) {
-        console.log(
-          "Visitor tracking error:",
-          error.message
-        );
-      }
-    };
 
-    trackVisitor();
-  }, []);
 
   // LOAD INITIAL DATA
   useEffect(() => {

@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { TerminalSquare, X } from "lucide-react";
+import { useProfile } from "@/hooks/useProfile";
+import { SITE } from "@/config/site";
 
 const ASCII_NAME = `
  ____        _             
@@ -24,6 +26,7 @@ const Terminal = () => {
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
   const navigate = useNavigate();
+  const { profile } = useProfile();
 
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 100);
@@ -50,6 +53,8 @@ const Terminal = () => {
           "  contact       - open contact section",
           "  resume        - open resume link",
           "  github        - open GitHub profile",
+          "  linkedin      - open LinkedIn profile",
+          "  email         - show my email address",
           "  clear         - clear the terminal",
           "  exit          - close terminal",
         ].join("\n")
@@ -84,12 +89,26 @@ const Terminal = () => {
       navigate("/contact");
     },
     resume: () => {
-      print("Resume link opened in a new tab (if configured).");
-      window.open("/resume", "_blank");
+      if (profile?.resume?.url) {
+        print("Opening resume in a new tab...");
+        window.open(profile.resume.url, "_blank");
+      } else {
+        print(
+          "Resume abhi load nahi hua — thodi der baad try karo ya 'contact' se message bhejo.",
+          "err"
+        );
+      }
     },
     github: () => {
       print("Opening GitHub...");
-      window.open("https://github.com/", "_blank");
+      window.open(profile?.githubURL || SITE.github, "_blank");
+    },
+    linkedin: () => {
+      print("Opening LinkedIn...");
+      window.open(profile?.linkedInURL || SITE.linkedin, "_blank");
+    },
+    email: () => {
+      print(`Email: ${SITE.email}`);
     },
     clear: () => {
       setLines([]);

@@ -394,7 +394,7 @@ export const chatWithAria = async (req, res) => {
           "Content-Type": "application/json",
 
           // Optional but recommended
-          "HTTP-Referer": "http://localhost:5173",
+          "HTTP-Referer": process.env.PORTFOLIO_URL || "http://localhost:5173",
           "X-Title": "Rajan Portfolio AI",
         },
 

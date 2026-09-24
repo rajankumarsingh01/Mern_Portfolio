@@ -239,6 +239,8 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { motion } from "framer-motion";
 import HeroSkeleton from "./HeroSkeleton";
+import { useProfile } from "@/hooks/useProfile";
+import { SITE } from "@/config/site";
 
 const containerVariants = {
   hidden: {},
@@ -255,23 +257,10 @@ const itemVariants = {
 };
 
 const Hero = () => {
-  const [user, setUser] = useState(null);
+  const { profile: user, failed } = useProfile();
 
-  useEffect(() => {
-    const getMyProfile = async () => {
-      try {
-        const { data } = await axios.get(
-          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/user/portfolio/me",
-          { withCredentials: true }
-        );
-        if (data?.user) setUser(data.user);
-      } catch (error) {
-        console.log("Profile fetch error:", error);
-      }
-    };
-    getMyProfile();
-  }, []);
-  if (!user) return <HeroSkeleton />;
+  // Backend cold-start ya error me bhi page skeleton pe atka na rahe
+  if (!user && !failed) return <HeroSkeleton />;
   return (
     <motion.div
       variants={containerVariants}
@@ -345,11 +334,13 @@ const Hero = () => {
         className="w-fit px-5 py-2 bg-slate-50 rounded-[20px] 
         flex gap-5 items-center mt-4 md:mt-8 lg:mt-10"
       >
-        <a href="https://www.youtube.com" target="_blank" rel="noreferrer">
-          <motion.div whileHover={{ scale: 1.3 }}>
-            <Youtube className="text-red-500 w-7 h-7" />
-          </motion.div>
-        </a>
+        {SITE.youtube && (
+          <a href={SITE.youtube} target="_blank" rel="noreferrer">
+            <motion.div whileHover={{ scale: 1.3 }}>
+              <Youtube className="text-red-500 w-7 h-7" />
+            </motion.div>
+          </a>
+        )}
 
         {user?.instagramURL && (
           <a href={user.instagramURL} target="_blank" rel="noreferrer">
@@ -367,8 +358,8 @@ const Hero = () => {
           </a>
         )}
 
-        {user?.linkedInURL && (
-          <a href={user.linkedInURL} target="_blank" rel="noreferrer">
+        {(user?.linkedInURL || SITE.linkedin) && (
+          <a href={user?.linkedInURL || SITE.linkedin} target="_blank" rel="noreferrer">
             <motion.div whileHover={{ scale: 1.3 }}>
               <Linkedin className="text-sky-500 w-7 h-7" />
             </motion.div>
@@ -389,8 +380,8 @@ const Hero = () => {
         variants={itemVariants}
         className="mt-4 md:mt-8 lg:mt-10 flex gap-3"
       >
-        {user?.githubURL && (
-          <a href={user.githubURL} target="_blank" rel="noreferrer">
+        {(user?.githubURL || SITE.github) && (
+          <a href={user?.githubURL || SITE.github} target="_blank" rel="noreferrer">
             <motion.div whileHover={{ scale: 1.1 }}>
               <Button className="rounded-[30px] flex items-center gap-2">
                 <Github />
@@ -411,7 +402,7 @@ const Hero = () => {
           </a>
         )}
 
-        <a href="mailto:rajankrsingh200@gmail.com">
+        <a href={`mailto:${SITE.email}`}>
           <motion.div whileHover={{ scale: 1.1 }}>
             <Button className="rounded-[30px] flex items-center gap-2 bg-green-500 hover:bg-green-600">
               Hire Me

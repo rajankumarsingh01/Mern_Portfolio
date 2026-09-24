@@ -12,6 +12,7 @@
 import React from "react";
 import { Heart, Github, Linkedin, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { SITE } from "@/config/site";
 
 const Footer = () => {
   return (
@@ -37,7 +38,7 @@ const Footer = () => {
         {/* Social Icons */}
         <div className="flex items-center gap-6">
           <a
-            href="https://github.com"
+                        href={SITE.github}
             target="_blank"
             rel="noopener noreferrer"
             className="group p-3 rounded-full border border-border 
@@ -49,7 +50,7 @@ const Footer = () => {
           </a>
 
           <a
-            href="www.linkedin.com/in/rajan-kumar-singh0"
+            href={SITE.linkedin}
             target="_blank"
             rel="noopener noreferrer"
             className="group p-3 rounded-full border border-border 
