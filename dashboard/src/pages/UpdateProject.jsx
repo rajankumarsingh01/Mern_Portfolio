@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -104,7 +105,7 @@ const UpdateProject = () => {
     const getProject = async () => {
       try {
         const res = await axios.get(
-          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/get/${id}`,
+          `${API_URL}/api/v1/project/get/${id}`,
           {
             withCredentials: true,
           }

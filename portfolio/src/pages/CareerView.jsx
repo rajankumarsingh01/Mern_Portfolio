@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 // import { useEffect, useState } from "react";
 // import { useParams, Link } from "react-router-dom";
 // import axios from "axios";
@@ -21,7 +22,7 @@
 //     const fetch = async () => {
 //       try {
 //         const { data } = await axios.get(
-//           `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/slug/${slug}`
+//           `${API_URL}/api/v1/career/slug/${slug}`
 //         );
 //         setCareer(data.career);
 //       } catch (err) {
@@ -675,7 +676,7 @@
 //     const fetchCareer = async () => {
 //       try {
 //         const { data } = await axios.get(
-//           `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/slug/${slug}`
+//           `${API_URL}/api/v1/career/slug/${slug}`
 //         );
 //         setCareer(data.career);
 //       } catch (err) {
@@ -1505,7 +1506,7 @@ const CareerView = () => {
     const fetchCareer = async () => {
       try {
         const { data } = await axios.get(
-          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/slug/${slug}`
+          `${API_URL}/api/v1/career/slug/${slug}`
         );
         setCareer(data.career);
       } catch (err) {

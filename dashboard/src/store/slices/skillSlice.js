@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -87,7 +88,7 @@ export const getAllSkills = () => async (dispatch) => {
   dispatch(skillSlice.actions.getAllSkillsRequest());
   try {
     const response = await axios.get(
-      "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/getall",
+      `${API_URL}/api/v1/skill/getall`,
       { withCredentials: true }
     );
     dispatch(skillSlice.actions.getAllSkillsSuccess(response.data.skills));
@@ -103,7 +104,7 @@ export const addNewSkill = (data) => async (dispatch) => {
   dispatch(skillSlice.actions.addNewSkillRequest());
   try {
     const response = await axios.post(
-      "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/add",
+      `${API_URL}/api/v1/skill/add`,
       data,
       {
         withCredentials: true,
@@ -123,7 +124,7 @@ export const updateSkill = (id, proficiency, category) => async (dispatch) => {
   dispatch(skillSlice.actions.updateSkillRequest());
   try {
     const response = await axios.put(
-      `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/update/${id}`,
+      `${API_URL}/api/v1/skill/update/${id}`,
       { proficiency, category },
       {
         withCredentials: true,
@@ -141,7 +142,7 @@ export const deleteSkill = (id) => async (dispatch) => {
   dispatch(skillSlice.actions.deleteSkillRequest());
   try {
     const response = await axios.delete(
-      `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/delete/${id}`,
+      `${API_URL}/api/v1/skill/delete/${id}`,
       {
         withCredentials: true,
       }

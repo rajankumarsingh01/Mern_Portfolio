@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -303,7 +304,7 @@ const Skills = () => {
         setLoading(true);
 
         const { data } = await axios.get(
-          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/skill/getall",
+          `${API_URL}/api/v1/skill/getall`,
           {
             withCredentials: true,
           }

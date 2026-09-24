@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 // import React, { useEffect, useState } from "react";
 
 // import { useNavigate, useParams, Link } from "react-router-dom";
@@ -19,7 +20,7 @@
 //     const getProject = async () => {
 //       try {
 //         const res = await axios.get(
-//           `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/get/${id}`,
+//           `${API_URL}/api/v1/project/get/${id}`,
 //           {
 //             withCredentials: true,
 //           }
@@ -227,7 +228,7 @@ const ViewProject = () => {
     const getProject = async () => {
       try {
         const res = await axios.get(
-          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/get/${id}`,
+          `${API_URL}/api/v1/project/get/${id}`,
           { withCredentials: true }
         );
         setProject(res.data.project);
@@ -253,7 +254,7 @@ const handleDownload = async () => {
     const token = localStorage.getItem("adminToken");
     console.log("TOKEN:", token);  // token hai ya null?
 
-    const url = `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/download/admin/${project._id}`;
+    const url = `${API_URL}/api/v1/project/download/admin/${project._id}`;
     console.log("HITTING URL:", url);  // URL sahi hai?
 
     const response = await fetch(url, {

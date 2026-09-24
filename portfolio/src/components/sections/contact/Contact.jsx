@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -54,7 +55,7 @@ const Contact = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/message/send",
+        `${API_URL}/api/v1/message/send`,
         formData,
         { withCredentials: true, headers: { "Content-Type": "application/json" } }
       );

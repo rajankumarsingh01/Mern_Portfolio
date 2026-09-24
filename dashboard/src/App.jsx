@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -50,7 +51,7 @@
 //     const trackVisitor = async () => {
 //       try {
 //         await axios.post(
-//           "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/track",
+//           `${API_URL}/api/v1/visitor/track`,
 //           {
 //             page: window.location.pathname,
 //           }

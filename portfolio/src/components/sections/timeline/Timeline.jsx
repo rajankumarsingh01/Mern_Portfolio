@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -320,7 +321,7 @@ const Timeline = () => {
 
   useEffect(() => {
     axios
-      .get("https://mern-portfolio-backend-ke5j.onrender.com/api/v1/timeline/getall", { withCredentials: true })
+      .get(`${API_URL}/api/v1/timeline/getall`, { withCredentials: true })
       .then(({ data }) => { setTimeline(data.timelines); setLoaded(true); })
       .catch(console.log);
   }, []);

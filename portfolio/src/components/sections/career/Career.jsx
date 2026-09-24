@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CareerCard from "./CareerCard";
@@ -13,7 +14,7 @@ const Career = () => {
     const fetchCareers = async () => {
       try {
         const { data } = await axios.get(
-          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/all"
+          `${API_URL}/api/v1/career/all`
         );
         // only published ones
         setItems(

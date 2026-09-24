@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 // import {
 //   ResponsiveContainer,
 //   AreaChart,
@@ -126,7 +127,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     axios.get("https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/analytics", { withCredentials: true })
+//     axios.get(`${API_URL}/api/v1/visitor/analytics`, { withCredentials: true })
 //       .then(({ data }) => setAnalytics(data.analytics))
 //       .catch(console.log)
 //       .finally(() => setLoading(false));
@@ -407,7 +408,7 @@ const VisitorAnalytics = () => {
   useEffect(() => {
     axios
       .get(
-        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/visitor/analytics",
+        `${API_URL}/api/v1/visitor/analytics`,
         { withCredentials: true }
       )
       .then((res) => {

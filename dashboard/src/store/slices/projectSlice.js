@@ -1,7 +1,8 @@
+import { API_URL } from "@/config/api";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "https://mern-portfolio-backend-ke5j.onrender.com";
+const API = `${API_URL}`;
 
 // Token helper — cookie nahi toh localStorage se
 const getAuthConfig = (isFormData = false) => {

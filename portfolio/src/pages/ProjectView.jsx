@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -9,7 +10,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 
-const API = import.meta.env.VITE_BACKEND_URL || "https://mern-portfolio-backend-ke5j.onrender.com";
+const API = API_URL;
 
 // ── Particles Background ────────────────────────────────────────────────────
 const ParticleField = () => {

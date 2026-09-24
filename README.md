@@ -58,7 +58,7 @@ It's built with production concerns in mind: rate limiting, XSS/NoSQL-injection 
 - ✅ Secure JWT authentication with HTTPOnly cookies
 - ✅ Admin Dashboard with full Project CRUD
 - ✅ Resume & avatar uploads via Cloudinary
-- ✅ Contact message system with email notifications (Nodemailer)
+- ✅ Contact message system with email notifications (Resend API)
 - ✅ Protected routes & role-based middleware
 - ✅ Rate limiting, Helmet, XSS-clean, Mongo sanitize for security
 - ✅ Production-ready error handling middleware
@@ -68,20 +68,20 @@ It's built with production concerns in mind: rate limiting, XSS/NoSQL-injection 
 - 💻 **Interactive Terminal** — a mock dev terminal for exploring the site in a CLI-style UX
 - 🎮 **Mini Game** — a dev-themed arcade game with a level-up system, built directly into the UI
 - 📝 Markdown-powered blog/content rendering (`react-markdown`)
-- 🎨 3D visuals via `@react-three/fiber` and `three.js`
+- 🎨 Smooth animated UI with Framer Motion
 
 ---
 
 ## 🛠️ Tech Stack
 
 **Frontend — Portfolio (`/portfolio`)**
-`React 18` · `Vite` · `Tailwind CSS` · `Framer Motion` · `React Router DOM` · `React Hook Form + Zod` · `Radix UI` · `Three.js / React Three Fiber` · `Firebase` · `Axios`
+`React 18` · `Vite` · `Tailwind CSS` · `Framer Motion` · `React Router DOM` · `React Hook Form + Zod` · `Radix UI` · `Firebase` · `Axios`
 
 **Frontend — Admin Dashboard (`/dashboard`)**
 `React 18` · `Vite` · `Redux Toolkit` · `Recharts` · `Radix UI` · `Tailwind CSS`
 
 **Backend (`/backend`)**
-`Node.js` · `Express.js` · `MongoDB Atlas + Mongoose` · `JWT` · `Cookie-based Auth` · `Cloudinary` · `Nodemailer` · `Helmet` · `express-rate-limit` · `express-mongo-sanitize` · `xss-clean` · `hpp`
+`Node.js` · `Express.js` · `MongoDB Atlas + Mongoose` · `JWT` · `Cookie-based Auth` · `Cloudinary` · `Resend` · `Helmet` · `express-rate-limit` · `express-mongo-sanitize` · `xss-clean` · `hpp`
 
 **Deployment**
 `Vercel` (Frontend + Dashboard) · `Render` (Backend) · `MongoDB Atlas` (Database)
@@ -176,16 +176,18 @@ Create a `.env` file inside `backend/`:
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET_KEY=your_secret_key
+JWT_EXPIRES=7d
 COOKIE_EXPIRE=7
-CLOUDINARY_NAME=your_cloud_name
+CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-PORTFOLIO_URL=your_portfolio_url
+PORTFOLIO_URL=https://your-portfolio-url.vercel.app
 DASHBOARD_URL=https://your-dashboard-url.vercel.app
-SMTP_HOST=your_smtp_host
-SMTP_PORT=your_smtp_port
-SMTP_MAIL=your_email
-SMTP_PASSWORD=your_email_app_password
+RESEND_API_KEY=your_resend_api_key
+NOTIFY_EMAIL=email_where_you_want_contact_notifications
+OPENROUTER_API_KEY=your_openrouter_key
+
+Optional (payments / Google login): `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`. Frontends (`portfolio/`, `dashboard/`) optionally use `VITE_BACKEND_URL` (see `.env.example`).
 ```
 
 > ⚠️ Never commit your real `.env` file. Use `.env.example` as a template for contributors.

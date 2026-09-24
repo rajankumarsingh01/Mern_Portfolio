@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -16,7 +17,7 @@ const Portfolio = () => {
     const getMyProjects = async () => {
       try {
         const { data } = await axios.get(
-          "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/getall",
+          `${API_URL}/api/v1/project/getall`,
           {
             withCredentials: true,
           }

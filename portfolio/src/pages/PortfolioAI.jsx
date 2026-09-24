@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 
@@ -8,7 +9,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API = import.meta.env.VITE_BACKEND_URL || "https://mern-portfolio-backend-ke5j.onrender.com";
+const API = API_URL;
 
 // ── Call backend proxy (NOT direct Anthropic) ─────────────────────────────
 const callAI = async (messages) => {

@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 
 
 // import {
@@ -36,7 +37,7 @@
 //     const getMyProfile = async () => {
 //       try {
 //         const { data } = await axios.get(
-//           "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/user/portfolio/me",
+//           `${API_URL}/api/v1/user/portfolio/me`,
 //           { withCredentials: true }
 //         );
 //         if (data?.user) setUser(data.user);

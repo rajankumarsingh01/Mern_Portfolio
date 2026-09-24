@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
@@ -32,7 +33,7 @@ const ViewBuyers = () => {
     const fetchBuyers = async () => {
       try {
         const res = await axios.get(
-          `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/project/buyers/${id}`,
+          `${API_URL}/api/v1/project/buyers/${id}`,
           {
             withCredentials: true,
           }

@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 // import { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 // import axios from "axios";
@@ -19,7 +20,7 @@
 //   const fetchArticles = async () => {
 //     try {
 //       const { data } = await axios.get(
-//         "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/article/all"
+//         `${API_URL}/api/v1/article/all`
 //       );
 
 //       setArticles(data.articles || []);
@@ -225,7 +226,7 @@
 //   const fetchArticles = async () => {
 //     try {
 //       const { data } = await axios.get(
-//         "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/article/all"
+//         `${API_URL}/api/v1/article/all`
 //       );
 
 //       setArticles(data.articles || []);
@@ -554,7 +555,7 @@ const Articles = () => {
 
   const fetchArticles = async () => {
     try {
-      const { data } = await axios.get("https://mern-portfolio-backend-ke5j.onrender.com/api/v1/article/all");
+      const { data } = await axios.get(`${API_URL}/api/v1/article/all`);
       setArticles(data.articles || []);
     } catch (error) {
       console.log(error);

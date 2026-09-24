@@ -1,8 +1,9 @@
+import { API_URL } from "@/config/api";
 // import { createSlice } from "@reduxjs/toolkit";
 // import axios from "axios";
 
 
-// const API = import.meta.env.VITE_BACKEND_URL || "https://mern-portfolio-backend-ke5j.onrender.com";
+// const API = API_URL;
 
 // const userSlice = createSlice({
 //   name: "user",
@@ -174,7 +175,7 @@
 //     dispatch(userSlice.actions.updatePasswordRequest());
 //     try {
 //       const { data } = await axios.put(
-//         "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/user/password/update",
+//         `${API_URL}/api/v1/user/password/update`,
 //         { currentPassword, newPassword, confirmNewPassword },
 //         {
 //           withCredentials: true,
@@ -194,7 +195,7 @@
 //   dispatch(userSlice.actions.updateProfileRequest());
 //   try {
 //     const response = await axios.put(
-//       "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/user/me/profile/update",
+//       `${API_URL}/api/v1/user/me/profile/update`,
 //       data,
 //       {
 //         withCredentials: true,
@@ -239,7 +240,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = import.meta.env.VITE_BACKEND_URL || "https://mern-portfolio-backend-ke5j.onrender.com";
+const API = API_URL;
 
 // ── Token helper ─────────────────────────────────────────────────────────────
 const getAuthHeaders = (isFormData = false) => {

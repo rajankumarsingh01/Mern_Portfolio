@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Code2, BrainCircuit, Rocket, ShieldCheck, ArrowUpRight, Terminal, Cpu, Globe, Sparkles } from "lucide-react";
 import { SITE } from "@/config/site";
-import { SITE } from "@/config/site";
+
 
 // ── Typewriter ───────────────────────────────────────────────────────────────
 const Typewriter = ({ words }) => {
@@ -480,7 +480,7 @@ const About = () => {
           </a>
 
           {/* socials */}
-          <div style={{display:"flex",gap:8}}>
+                   <div style={{display:"flex",gap:8}}>
             {[
               { label: "GitHub", href: SITE.github },
               { label: "LinkedIn", href: SITE.linkedin },
@@ -488,17 +488,11 @@ const About = () => {
             ]
               .filter((s) => s.href)
               .map((s) => (
-                
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="soc"
-                >
+                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="soc">
                   {s.label}
                 </a>
               ))}
-          </div>
+          </div>0
         </motion.div>
       </div>
     </section>

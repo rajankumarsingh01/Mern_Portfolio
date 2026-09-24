@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -154,7 +155,7 @@ export const getAllCareerItems =
 
     try {
       const { data } = await axios.get(
-        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/all",
+        `${API_URL}/api/v1/career/all`,
         {
           withCredentials: true,
         }
@@ -185,7 +186,7 @@ export const getSingleCareerItem =
 
     try {
       const { data } = await axios.get(
-        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/${id}`,
+        `${API_URL}/api/v1/career/${id}`,
         {
           withCredentials: true,
         }
@@ -216,7 +217,7 @@ export const addCareerItem =
 
     try {
       const { data } = await axios.post(
-              "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/add",
+              `${API_URL}/api/v1/career/add`,
         formData,
         {
           withCredentials: true,
@@ -252,7 +253,7 @@ export const updateCareerItem =
 
     try {
       const { data } = await axios.put(
-        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/update/${id}`,
+        `${API_URL}/api/v1/career/update/${id}`,
         formData,
         {
           withCredentials: true,
@@ -287,7 +288,7 @@ export const deleteCareerItem =
 
     try {
       const { data } = await axios.delete(
-        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/delete/${id}`,
+        `${API_URL}/api/v1/career/delete/${id}`,
         {
           withCredentials: true,
           headers: authHeaders(),

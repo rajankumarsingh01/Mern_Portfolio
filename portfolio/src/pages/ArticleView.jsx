@@ -1,3 +1,4 @@
+import { API_URL } from "@/config/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
@@ -15,7 +16,7 @@ const ArticleView = () => {
   const fetchArticle = async () => {
     try {
       const { data } = await axios.get(
-        `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/article/${slug}`
+        `${API_URL}/api/v1/article/${slug}`
       );
 
       setArticle(data.article);
