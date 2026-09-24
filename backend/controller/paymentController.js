@@ -10,9 +10,7 @@ import ErrorHandler from "../middlewares/error.js";
 // CREATE RAZORPAY ORDER
 // =====================================================
 export const createOrder = catchAsyncErrors(async (req, res, next) => {
-  console.log("🔥 CREATE ORDER HIT");
-  console.log("🔥 req.customer:", req.customer);
-  console.log("🔥 req.body:", req.body);
+
 
   // 1. Auth check
   if (!req.customer) {
@@ -21,14 +19,13 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
 
   // 2. Env check
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-    console.log("❌ KEY_ID:", process.env.RAZORPAY_KEY_ID ? "set" : "MISSING");
-    console.log("❌ KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET ? "set" : "MISSING");
+  
     return res.status(500).json({ success: false, message: "Razorpay env missing" });
   }
 
   // 3. Razorpay instance check
   if (!razorpayInstance) {
-    console.log("❌ razorpayInstance is null/undefined");
+   
     return res.status(500).json({ success: false, message: "Razorpay not initialized" });
   }
 
@@ -40,7 +37,7 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
 
   // 5. Find project
   const project = await Project.findById(projectId);
-  console.log("🔥 Project:", project?._id, "| isPaid:", project?.isPaid, "| price:", project?.price);
+
 
   if (!project) {
     return res.status(404).json({ success: false, message: "Project not found" });
@@ -53,7 +50,7 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
   // 6. Price validation
   const price = Number(project.price);
   if (!price || isNaN(price) || price <= 0) {
-    console.log("❌ Invalid price:", project.price);
+    // console.log("❌ Invalid price:", project.price);
     return res.status(400).json({ success: false, message: "Invalid project price: " + project.price });
   }
 
@@ -69,7 +66,7 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
   // 8. Create Razorpay order
   try {
     const amount = Math.round(price * 100);
-    console.log("🔥 Creating order | amount (paise):", amount);
+    // console.log("🔥 Creating order | amount (paise):", amount);
 
     const order = await razorpayInstance.orders.create({
       amount,
@@ -77,7 +74,7 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
       receipt: "rcpt_" + Date.now(),
     });
 
-    console.log("✅ Razorpay order created:", order.id);
+    // console.log("✅ Razorpay order created:", order.id);
 
     return res.status(200).json({
       success: true,
@@ -85,7 +82,7 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
       key: process.env.RAZORPAY_KEY_ID,
     });
   } catch (razorpayError) {
-    console.log("❌ Razorpay error:", razorpayError);
+    // console.log("❌ Razorpay error:", razorpayError);
     return res.status(500).json({
       success: false,
       message: "Razorpay order creation failed",
@@ -98,8 +95,8 @@ export const createOrder = catchAsyncErrors(async (req, res, next) => {
 // VERIFY PAYMENT
 // =====================================================
 export const verifyPayment = catchAsyncErrors(async (req, res, next) => {
-  console.log("🔥 VERIFY PAYMENT HIT");
-  console.log("🔥 req.customer:", req.customer?._id);
+  // console.log("🔥 VERIFY PAYMENT HIT");
+  // console.log("🔥 req.customer:", req.customer?._id);
 
   if (!req.customer) {
     return res.status(401).json({ success: false, message: "Not authenticated" });
@@ -122,7 +119,7 @@ export const verifyPayment = catchAsyncErrors(async (req, res, next) => {
     .update(razorpay_order_id + "|" + razorpay_payment_id)
     .digest("hex");
 
-  console.log("🔥 Signature match:", generated_signature === razorpay_signature);
+  // console.log("🔥 Signature match:", generated_signature === razorpay_signature);
 
   if (generated_signature !== razorpay_signature) {
     return next(new ErrorHandler("Payment Verification Failed!", 400));

@@ -7,6 +7,11 @@ import crypto from "crypto";
 import { sendEmail } from "../utils/sendEmail.js";
 
 export const register = catchAsyncErrors(async (req, res, next) => {
+  // Registration sirf tab allowed hai jab DB me koi user nahi hai
+  if ((await User.countDocuments()) > 0) {
+    return next(new ErrorHandler("Registration is disabled", 403));
+  }
+
   if (!req.files || Object.keys(req.files).length === 0) {
     return next(new ErrorHandler("Avatar Required!", 400));
   }

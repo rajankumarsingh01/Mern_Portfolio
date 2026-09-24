@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const authHeaders = (extra = {}) => {
+  const token = localStorage.getItem("adminToken");
+  return { ...extra, ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+};
+
 const careerSlice = createSlice({
   name: "career",
 
@@ -211,14 +216,11 @@ export const addCareerItem =
 
     try {
       const { data } = await axios.post(
-        "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/add",
+              "https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/add",
         formData,
         {
           withCredentials: true,
-          headers: {
-            "Content-Type":
-              "multipart/form-data",
-          },
+          headers: authHeaders({ "Content-Type": "multipart/form-data" }),
         }
       );
 
@@ -254,10 +256,7 @@ export const updateCareerItem =
         formData,
         {
           withCredentials: true,
-          headers: {
-            "Content-Type":
-              "multipart/form-data",
-          },
+          headers: authHeaders({ "Content-Type": "multipart/form-data" }),
         }
       );
 
@@ -291,6 +290,7 @@ export const deleteCareerItem =
         `https://mern-portfolio-backend-ke5j.onrender.com/api/v1/career/delete/${id}`,
         {
           withCredentials: true,
+          headers: authHeaders(),
         }
       );
 

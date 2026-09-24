@@ -9,23 +9,18 @@ import {
   getSingleCareerById,
 } from "../controller/careerController.js";
 
+import { isAuthenticated } from "../middlewares/auth.js";
+
 const router = express.Router();
 
-// Slug se single career fetch karne ke liye
-router.get("/slug/:slug", getSingleCareer); // ← yeh add karo
-
-
-
-
-
-router.post("/add", createCareer);
-
+/* ---------- PUBLIC ---------- */
+router.get("/slug/:slug", getSingleCareer);
 router.get("/all", getAllCareers);
-
 router.get("/:id", getSingleCareerById);
 
-router.put("/update/:id", updateCareer);
-
-router.delete("/delete/:id", deleteCareer);
+/* ---------- ADMIN ONLY ---------- */
+router.post("/add", isAuthenticated, createCareer);
+router.put("/update/:id", isAuthenticated, updateCareer);
+router.delete("/delete/:id", isAuthenticated, deleteCareer);
 
 export default router;

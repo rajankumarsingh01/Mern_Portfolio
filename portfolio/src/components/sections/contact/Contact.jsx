@@ -8,7 +8,7 @@ import axios from "axios";
 import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, User, FileText, MessageSquare, CheckCircle } from "lucide-react";
+import { Send, User, Mail, FileText, MessageSquare, CheckCircle } from "lucide-react";
 
 const fields = [
   {
@@ -17,6 +17,13 @@ const fields = [
     type: "text",
     placeholder: "Rajan Kumar Singh",
     icon: User,
+  },
+  {
+    id: "email",
+    label: "Your Email",
+    type: "email",
+    placeholder: "you@company.com",
+    icon: Mail,
   },
   {
     id: "subject",
@@ -30,6 +37,7 @@ const fields = [
 const Contact = () => {
   const [formData, setFormData] = useState({
     senderName: "",
+    email: "",
     subject: "",
     message: "",
   });
@@ -52,7 +60,7 @@ const Contact = () => {
       );
       toast.success(data.message);
       setSent(true);
-      setFormData({ senderName: "", subject: "", message: "" });
+      setFormData({ senderName: "", email: "", subject: "", message: "" });
       setTimeout(() => setSent(false), 3500);
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
