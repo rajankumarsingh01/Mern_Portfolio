@@ -1,0 +1,12 @@
+/* Design tokens — ek jagah se poore portfolio ka accent, font aur radius control hota hai */
+:root {
+  --accent: #22c55e;
+  --accent-soft: rgba(34, 197, 94, 0.12);
+  --accent-border: rgba(34, 197, 94, 0.22);
+
+  --font-display: "Clash Display", "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-serif: "Instrument Serif", Georgia, serif;
+
+  --radius-card: 18px;
+}

@@ -89,24 +89,25 @@ const Counter = ({ target, suffix = "" }) => {
 };
 
 // ── Skill Bar ────────────────────────────────────────────────────────────────
-const SkillBar = ({ label, level, delay }) => {
+const SkillBar = ({ label }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
   return (
-    <div ref={ref} style={{ marginBottom: 16 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 7 }}>
-        <span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", fontFamily: "'JetBrains Mono',monospace" }}>{label}</span>
-        <span style={{ fontSize: 12, color: "#4ade80", fontFamily: "'JetBrains Mono',monospace" }}>{level}%</span>
-      </div>
-      <div style={{ height: 3, background: "rgba(255,255,255,0.06)", borderRadius: 2, overflow: "hidden" }}>
-        <motion.div
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : {}}
-          transition={{ duration: 1.2, delay, ease: [0.22, 1, 0.36, 1] }}
-          style={{ height: "100%", background: "linear-gradient(90deg,#16a34a,#4ade80)", borderRadius: 2 }}
-        />
-      </div>
-    </div>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -8 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.4 }}
+      style={{
+        display: "flex", alignItems: "center", gap: 8,
+        padding: "9px 0", borderBottom: "1px solid rgba(255,255,255,0.04)",
+      }}
+    >
+      <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#4ade80", flexShrink: 0 }} />
+      <span style={{ fontSize: 12.5, color: "rgba(255,255,255,0.62)", fontFamily: "'JetBrains Mono',monospace" }}>
+        {label}
+      </span>
+    </motion.div>
   );
 };
 
@@ -118,18 +119,18 @@ const cards = [
 ];
 
 const skills = [
-  { label: "React / Next.js",      level: 88, delay: 0.1 },
-  { label: "Node.js / Express",    level: 85, delay: 0.2 },
-  { label: "MongoDB / Mongoose",   level: 80, delay: 0.3 },
-  { label: "TypeScript",           level: 72, delay: 0.4 },
-  { label: "AI / LLM Integration", level: 68, delay: 0.5 },
+  { label: "React / Next.js" },
+  { label: "Node.js / Express" },
+  { label: "MongoDB / Mongoose" },
+  { label: "TypeScript" },
+  { label: "AI / LLM Integration" },
 ];
 
 const stats = [
-  { value: "5", suffix: "+", label: "Projects",   icon: "◈" },
-  { value: "MERN", suffix: "", label: "Stack",      icon: "◉" },
-  { value: "AI",   suffix: "", label: "Exploring",  icon: "◎" },
-  { value: "2027", suffix: "", label: "Graduation", icon: "◐" },
+  { value: "MERN", suffix: "", label: "Primary Stack",  icon: "◉" },
+  { value: "AI",   suffix: "", label: "Exploring",       icon: "◎" },
+  { value: "CS",   suffix: "", label: "Degree",          icon: "◈" },
+  { value: "2027", suffix: "", label: "Graduation",      icon: "◐" },
 ];
 
 // ── About ────────────────────────────────────────────────────────────────────
