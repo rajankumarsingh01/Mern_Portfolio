@@ -62,6 +62,10 @@ const UpdateProject = () => {
   const [price, setPrice] = useState("");
 
   const [sourceCode, setSourceCode] = useState(null);
+  const [problemStatement, setProblemStatement] = useState("");
+  const [solution, setSolution] = useState("");
+  const [highlights, setHighlights] = useState("");
+  const [demoVideoUrl, setDemoVideoUrl] = useState("");
 
   const { error, message, loading } = useSelector(
     (state) => state.project
@@ -140,6 +144,10 @@ const UpdateProject = () => {
           project.projectBanner &&
           project.projectBanner.url
         );
+        setProblemStatement(project.problemStatement || "");
+        setSolution(project.solution || "");
+        setHighlights(project.highlights || "");
+        setDemoVideoUrl(project.demoVideoUrl || "");
       } catch (error) {
         toast.error(error.response.data.message);
       }
@@ -187,10 +195,12 @@ const UpdateProject = () => {
 
     formData.append("projectBanner", projectBanner);
 
-    // NEW
-    formData.append("isPaid", isPaid);
-
+     formData.append("isPaid", isPaid);
     formData.append("price", price);
+    formData.append("problemStatement", problemStatement.trim());
+    formData.append("solution", solution.trim());
+    formData.append("highlights", highlights.trim());
+    formData.append("demoVideoUrl", demoVideoUrl.trim());
 
     if (sourceCode) {
       formData.append("sourceCode", sourceCode);
@@ -280,6 +290,58 @@ const UpdateProject = () => {
                       setTechnologies(e.target.value)
                     }
                   />
+                </div>
+
+                                {/* CASE STUDY — optional but recommended */}
+                <div className="rounded-2xl border border-dashed border-gray-300 p-5">
+                  <p className="mb-4 text-sm font-semibold text-cyan-700">
+                    Case Study (optional — recruiters read this the most)
+                  </p>
+                  <div className="flex flex-col gap-5">
+                    <div>
+                      <label className="mb-2 block text-sm font-medium">
+                        Problem Statement
+                      </label>
+                      <Textarea
+                        placeholder="What real problem does this project solve?"
+                        value={problemStatement}
+                        onChange={(e) => setProblemStatement(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-sm font-medium">
+                        Solution / Your Approach
+                      </label>
+                      <Textarea
+                        placeholder="How did you solve it?"
+                        value={solution}
+                        onChange={(e) => setSolution(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-sm font-medium">
+                        Key Highlights (ek line me ek point)
+                      </label>
+                      <Textarea
+                        placeholder={"JWT auth with refresh tokens\nRazorpay payment integration"}
+                        className="min-h-[110px]"
+                        value={highlights}
+                        onChange={(e) => setHighlights(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-sm font-medium">
+                        Demo Video URL
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="YouTube link"
+                        value={demoVideoUrl}
+                        onChange={(e) => setDemoVideoUrl(e.target.value)}
+                        className="h-12 w-full rounded-lg border border-gray-300 px-4 focus:outline-none focus:border-cyan-500"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {/* STACK */}

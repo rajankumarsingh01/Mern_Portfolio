@@ -334,6 +334,27 @@ const handleDownload = async () => {
     </div>
   );
 
+  const highlightList = project.highlights
+    ? project.highlights.split("\n").map(h => h.trim()).filter(Boolean)
+    : [];
+
+  const demoEmbedUrl = (() => {
+    if (!project.demoVideoUrl) return null;
+    try {
+      const u = new URL(project.demoVideoUrl);
+      let id = null;
+      if (u.hostname.includes("youtu.be")) id = u.pathname.slice(1);
+      else if (u.hostname.includes("youtube.com")) {
+        if (u.pathname === "/watch") id = u.searchParams.get("v");
+        else if (u.pathname.startsWith("/embed/")) id = u.pathname.split("/")[2];
+        else if (u.pathname.startsWith("/shorts/")) id = u.pathname.split("/")[2];
+      }
+      return id ? `https://www.youtube.com/embed/${id}` : null;
+    } catch {
+      return null;
+    }
+  })();
+
   const techList = project.technologies
     ? project.technologies.split(",").map(t => t.trim()).filter(Boolean)
     : [];
@@ -671,6 +692,89 @@ const handleDownload = async () => {
                   }}>
                     {project.description}
                   </p>
+                </div>
+              )}
+
+              {/* Case Study: Problem / Solution */}
+              {(project.problemStatement || project.solution) && (
+                <div className="fade-up-2" style={{ display: "grid", gap: 24 }}>
+                  {project.problemStatement && (
+                    <div>
+                      <p style={{
+                        fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+                        color: "#22c55e", marginBottom: 10,
+                        fontFamily: "'JetBrains Mono', monospace",
+                      }}>Problem</p>
+                      <p style={{
+                        fontSize: 15, lineHeight: 1.8,
+                        color: "rgba(255,255,255,0.62)",
+                        fontFamily: "'Syne', sans-serif",
+                      }}>{project.problemStatement}</p>
+                    </div>
+                  )}
+                  {project.solution && (
+                    <div>
+                      <p style={{
+                        fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+                        color: "#22c55e", marginBottom: 10,
+                        fontFamily: "'JetBrains Mono', monospace",
+                      }}>Solution</p>
+                      <p style={{
+                        fontSize: 15, lineHeight: 1.8,
+                        color: "rgba(255,255,255,0.62)",
+                        fontFamily: "'Syne', sans-serif",
+                      }}>{project.solution}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Key Highlights */}
+              {highlightList.length > 0 && (
+                <div className="fade-up-2">
+                  <p style={{
+                    fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+                    color: "#22c55e", marginBottom: 14,
+                    fontFamily: "'JetBrains Mono', monospace",
+                  }}>Key Highlights</p>
+                  <ul style={{ display: "flex", flexDirection: "column", gap: 10, paddingLeft: 0, listStyle: "none" }}>
+                    {highlightList.map((h, i) => (
+                      <li key={i} style={{
+                        display: "flex", gap: 10, alignItems: "flex-start",
+                        fontSize: 14.5, lineHeight: 1.7,
+                        color: "rgba(255,255,255,0.6)",
+                        fontFamily: "'Syne', sans-serif",
+                      }}>
+                        <span style={{ color: "#4ade80", flexShrink: 0 }}>▸</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Demo Video */}
+              {demoEmbedUrl && (
+                <div className="fade-up-2">
+                  <p style={{
+                    fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+                    color: "#22c55e", marginBottom: 14,
+                    fontFamily: "'JetBrains Mono', monospace",
+                  }}>Demo</p>
+                  <div style={{
+                    position: "relative", paddingTop: "56.25%",
+                    borderRadius: 16, overflow: "hidden",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}>
+                    <iframe
+                      src={demoEmbedUrl}
+                      title={`${project.title} demo video`}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+                    />
+                  </div>
                 </div>
               )}
 

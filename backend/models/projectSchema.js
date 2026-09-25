@@ -32,6 +32,27 @@ const projectSchema = new mongoose.Schema(
       required: true,
     },
 
+    // ── Case study fields (sab optional hain) ──
+    problemStatement: {
+      type: String,
+      default: "",
+    },
+
+    solution: {
+      type: String,
+      default: "",
+    },
+
+    highlights: {
+      type: String, // dashboard me ek line ek highlight, portfolio pe bullet list ban jaati hai
+      default: "",
+    },
+
+    demoVideoUrl: {
+      type: String,
+      default: "",
+    },
+
     deployed: {
       type: String,
       required: true,

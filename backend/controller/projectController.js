@@ -46,6 +46,10 @@ const {
   isPaid,
   price,
   sourceCodeLink,
+  problemStatement,
+  solution,
+  highlights,
+  demoVideoUrl,
 } = req.body;
 
 
@@ -168,6 +172,11 @@ const {
 
       deployed,
 
+           problemStatement: problemStatement || "",
+      solution: solution || "",
+      highlights: highlights || "",
+      demoVideoUrl: demoVideoUrl || "",
+
       isPaid:
         isPaid === "true" ? true : false,
 
@@ -237,6 +246,11 @@ export const updateProject = catchAsyncErrors(
       projectLink: req.body.projectLink,
 
       gitRepoLink: req.body.gitRepoLink,
+
+       problemStatement: req.body.problemStatement || "",
+      solution: req.body.solution || "",
+      highlights: req.body.highlights || "",
+      demoVideoUrl: req.body.demoVideoUrl || "",
 
       isPaid:
         req.body.isPaid === "true"
