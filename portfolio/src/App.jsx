@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import AppRoutes from "./routes/AppRoutes";
 import VisitTracker from "./components/VisitTracker";
 import SeoManager from "./components/SeoManager";
+import SmoothScroll from "./components/SmoothScroll";
+import CommandPalette from "./components/CommandPalette";
 
 // Floating widgets first paint ke baad (browser idle hone par) load hote hain
 const PortfolioAI = lazy(() => import("./pages/PortfolioAI"));
@@ -39,6 +41,8 @@ function App() {
       <Router>
         <SeoManager />
         <VisitTracker />
+        <SmoothScroll />
+        <CommandPalette />
         <AppRoutes />
         {widgetsReady && (
           <Suspense fallback={null}>
