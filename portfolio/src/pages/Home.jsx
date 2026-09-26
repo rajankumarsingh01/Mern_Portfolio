@@ -2,14 +2,13 @@ import React, { lazy } from "react";
 import Hero from "../components/sections/hero/Hero";
 import LazySection from "../components/LazySection";
 
-// Hero turant load hota hai (first paint). Baaki sections scroll ke paas aane par load hote hain.
 const Timeline = lazy(() => import("../components/sections/timeline/Timeline"));
 const About = lazy(() => import("../components/sections/about/About"));
 const Skills = lazy(() => import("../components/sections/skills/Skills"));
 const Portfolio = lazy(() => import("../components/sections/projects/Portfolio"));
+const LiveProof = lazy(() => import("../components/sections/liveproof/LiveProof"));
 const Career = lazy(() => import("../components/sections/career/Career"));
 const Articles = lazy(() => import("../components/sections/articles/Articles"));
-const MyApps = lazy(() => import("../components/sections/apps/MyApps"));
 const Contact = lazy(() => import("../components/sections/contact/Contact"));
 
 const Home = () => {
@@ -33,16 +32,16 @@ const Home = () => {
         <Portfolio />
       </LazySection>
 
+      <LazySection minHeight={300}>
+        <LiveProof />
+      </LazySection>
+
       <LazySection id="career" minHeight={400}>
         <Career />
       </LazySection>
 
       <LazySection minHeight={400}>
         <Articles />
-      </LazySection>
-
-      <LazySection id="apps" minHeight={400}>
-        <MyApps />
       </LazySection>
 
       <LazySection id="contact" minHeight={600}>

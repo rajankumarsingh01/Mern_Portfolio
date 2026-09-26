@@ -271,13 +271,6 @@ const About = () => {
           <span style={{fontSize:11,letterSpacing:".15em",color:"#4ade80",textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace"}}>About Me</span>
         </motion.div>
 
-        {/* <h1 style={{fontFamily:"'Clash Display','Syne',sans-serif",fontWeight:700,fontSize:"clamp(34px,5.5vw,72px)",lineHeight:1.06,letterSpacing:"-.03em",color:"#fff",marginBottom:20}}>
-          Building Digital{" "}
-          <span style={{fontFamily:"'Instrument Serif',Georgia,serif",fontStyle:"italic",color:"#4ade80"}}>Experiences</span>
-          <br/>
-          <Typewriter words={["Beyond Just Code.","That Scale.","That Inspire.","That Matter."]}/>
-        </h1> */}
-
         <h1
   style={{
     fontFamily: "'Clash Display','Syne',sans-serif",
@@ -492,7 +485,7 @@ const About = () => {
                   {s.label}
                 </a>
               ))}
-          </div>0
+          </div>
         </motion.div>
       </div>
     </section>

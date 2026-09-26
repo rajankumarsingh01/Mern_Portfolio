@@ -20,6 +20,7 @@ import userRouter from "./routes/userRouter.js";
 import timelineRouter from "./routes/timelineRouter.js";
 import messageRouter from "./routes/messageRouter.js";
 import skillRouter from "./routes/skillRouter.js";
+import leetcodeRouter from "./routes/leetcodeRouter.js";
 import softwareApplicationRouter from "./routes/softwareApplicationRouter.js";
 import projectRouter from "./routes/projectRouter.js";
 import customerRouter from "./routes/customerRouter.js";
@@ -214,6 +215,8 @@ app.use("/api/v1/source-code",       sourceCodeRouter);
 app.use("/api/v1/visitor",           visitorRouter);
 app.use("/api/v1/article",           articleRoutes);
 app.use("/api/v1/career",            careerRouter);
+
+app.use("/api/v1/leetcode",          leetcodeRouter);
 
 /* ─────────────────────────────────────────
    13. HEALTH CHECK

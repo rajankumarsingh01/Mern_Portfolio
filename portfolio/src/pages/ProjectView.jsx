@@ -11,6 +11,9 @@ import { loadRazorpay } from "@/lib/loadRazorpay";
 import { auth } from "../firebase";
 import GoogleLoginButton from "../components/GoogleLoginButton";
 
+import { useDynamicSeo } from "@/hooks/useDynamicSeo";
+
+
 const API = API_URL;
 
 // ── Particles Background ────────────────────────────────────────────────────
@@ -144,20 +147,29 @@ const ProjectView = () => {
   }, []);
 
   // FETCH PROJECT
-  useEffect(() => {
-    const fetchProject = async () => {
-      try {
-        setProjectLoading(true);
-        const res = await axios.get(`${API}/api/v1/project/get/${id}`);
-        setProject(res.data.project);
-      } catch {
-        toast.error("Failed to load project");
-      } finally {
-        setProjectLoading(false);
-      }
-    };
-    fetchProject();
-  }, [id]);
+   useEffect(() => {
+     const fetchProject = async () => {
+       try {
+         setProjectLoading(true);
+         const res = await axios.get(`${API}/api/v1/project/get/${id}`);
+         setProject(res.data.project);
+       } catch {
+         toast.error("Failed to load project");
+       } finally {
+         setProjectLoading(false);
+       }
+     };
+     fetchProject();
+   }, [id]);
+
+  // Project load hote hi social-share preview real title/banner se update ho jaata hai
+  useDynamicSeo({
+    title: project ? `${project.title} — Rajan Kumar Singh` : null,
+    description: project?.description,
+    image: project?.projectBanner?.url,
+  });
+
+
 
   // CHECK PURCHASE
   const checkPurchase = useCallback(async (userOverride) => {

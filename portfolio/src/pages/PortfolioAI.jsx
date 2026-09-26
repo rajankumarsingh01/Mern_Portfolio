@@ -11,25 +11,48 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const API = API_URL;
 
-// ── Call backend proxy (NOT direct Anthropic) ─────────────────────────────
-const callAI = async (messages) => {
+// ── Call backend proxy (streaming) ────────────────────────────────────────
+const callAI = async (messages, onToken) => {
   const res = await fetch(`${API}/api/v1/ai/chat`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ messages }),
   });
 
-  const data = await res.json();
-
-
-
-  if (!res.ok) {
+  if (!res.ok || !res.body) {
+    const data = await res.json().catch(() => ({}));
     throw new Error(data?.error || "AI request failed");
   }
 
-  return data.message || "Sorry, I couldn't respond.";
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let full = "";
+  let buffer = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split("\n");
+    buffer = lines.pop();
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed.startsWith("data:")) continue;
+      const payload = trimmed.slice(5).trim();
+      if (payload === "[DONE]") continue;
+      try {
+        const { token } = JSON.parse(payload);
+        if (token) {
+          full += token;
+          onToken?.(full);
+        }
+      } catch {}
+    }
+  }
+
+  return full || "Sorry, I couldn't respond.";
 };
 
 // ── Parse [ACTION:type:value] from AI text ────────────────────────────────
@@ -100,6 +123,14 @@ const PortfolioAI = () => {
   const inputRef  = useRef(null);
   const navigate  = useNavigate();
 
+ // Command Palette se "Ask ARIA" select karne par ye chatbot khol deta hai
+   useEffect(() => {
+    const openFromEvent = () => setOpen(true);
+    window.addEventListener("open-aria", openFromEvent);
+    return () => window.removeEventListener("open-aria", openFromEvent);
+  }, []);
+
+
   // auto-scroll
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -145,27 +176,36 @@ const PortfolioAI = () => {
     setMessages(prev => [...prev, userMsg]);
     setLoading(true);
 
+    // Placeholder assistant message jo stream aate hi grow karega
+    const aiMsgId = Date.now() + 1;
+    setMessages(prev => [...prev, { role: "assistant", content: "", id: aiMsgId, streaming: true }]);
+
     try {
-      // build clean history for API
       const history = [...messages, userMsg].map(m => ({
         role: m.role,
         content: m.content,
       }));
 
-      const raw = await callAI(history);
-      const { clean, action } = parseAction(raw);
+      const raw = await callAI(history, (partial) => {
+        const { clean } = parseAction(partial);
+        setMessages(prev => prev.map(m => (m.id === aiMsgId ? { ...m, content: clean } : m)));
+      });
 
-      const aiMsg = { role: "assistant", content: clean, id: Date.now() + 1, action };
-      setMessages(prev => [...prev, aiMsg]);
+      const { clean, action } = parseAction(raw);
+      setMessages(prev =>
+        prev.map(m => (m.id === aiMsgId ? { ...m, content: clean, action, streaming: false } : m))
+      );
 
       if (action) performAction(action);
       if (!open) setUnread(n => n + 1);
     } catch {
-      setMessages(prev => [...prev, {
-        role: "assistant",
-        content: "Oops — something went wrong. Try again in a moment.",
-        id: Date.now() + 1,
-      }]);
+      setMessages(prev =>
+        prev.map(m =>
+          m.id === aiMsgId
+            ? { ...m, content: "Oops — something went wrong. Try again in a moment.", streaming: false }
+            : m
+        )
+      );
     } finally {
       setLoading(false);
     }
@@ -249,6 +289,7 @@ const PortfolioAI = () => {
         <motion.button
           className="aria-fab-ring"
           onClick={() => setOpen(o => !o)}
+          aria-label={open ? "Close ARIA assistant" : "Open ARIA assistant"}
           whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.93 }}
           style={{
            width: "clamp(50px, 13vw, 58px)", height: "clamp(50px, 13vw, 58px)", borderRadius: "50%", border: "none",

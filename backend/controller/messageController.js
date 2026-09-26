@@ -6,7 +6,13 @@ import { notifyByEmail } from "../utils/notifyByEmail.js";
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 
 export const sendMessage = catchAsyncErrors(async (req, res, next) => {
-  const { senderName, email, subject, message } = req.body;
+  const { senderName, email, subject, message, website } = req.body;
+
+  // Honeypot: real visitors never fill/see this field. If it has a value,
+  // it's a bot — pretend success but never save/email.
+  if (website) {
+    return res.status(201).json({ success: true, message: "Message Sent" });
+  }
 
   if (!senderName || !email || !subject || !message) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
@@ -31,7 +37,6 @@ export const sendMessage = catchAsyncErrors(async (req, res, next) => {
 
   await Message.create({ senderName, email, subject, message });
 
-  // Fire-and-forget: email fail ho to bhi message DB me save rahega
   notifyByEmail({ senderName, email, subject, message }).catch((err) =>
     console.error("Email notification failed:", err.message)
   );

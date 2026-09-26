@@ -1,7 +1,5 @@
 import { API_URL } from "@/config/api";
 
-
-
 import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from "framer-motion";
@@ -19,7 +17,7 @@ const Counter = ({ to }) => {
   useEffect(() => {
     if (!inView) return;
     let start = 0;
-    const step = Math.ceil(to / 40);
+    const step = Math.ceil(to / 40) || 1;
     const t = setInterval(() => {
       start += step;
       if (start >= to) { setVal(to); clearInterval(t); }
@@ -84,15 +82,12 @@ const TimelineCard = ({ item, index, total }) => {
     >
       {/* ── Spine column ── */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 56, flexShrink: 0 }}>
-
-        {/* Dot */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={inView ? { scale: 1, rotate: 0 } : {}}
           transition={{ ...SPRING, delay: index * 0.12 + 0.15 }}
           style={{ position: "relative", zIndex: 2, marginTop: 22 }}
         >
-          {/* Outer pulse ring — only for current */}
           {isPresent && (
             <motion.div
               animate={{ scale: [1, 2.2, 1], opacity: [0.5, 0, 0.5] }}
@@ -126,7 +121,6 @@ const TimelineCard = ({ item, index, total }) => {
           </motion.div>
         </motion.div>
 
-        {/* Connecting line */}
         {index < total - 1 && (
           <motion.div
             initial={{ scaleY: 0 }}
@@ -165,7 +159,6 @@ const TimelineCard = ({ item, index, total }) => {
             : "none",
         }}
       >
-        {/* Mouse-tracked spotlight */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -188,7 +181,6 @@ const TimelineCard = ({ item, index, total }) => {
           )}
         </AnimatePresence>
 
-        {/* Top-left accent bar */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
@@ -203,7 +195,6 @@ const TimelineCard = ({ item, index, total }) => {
         />
 
         <div style={{ position: "relative", zIndex: 1 }}>
-          {/* Date pill + NOW badge */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -250,7 +241,6 @@ const TimelineCard = ({ item, index, total }) => {
             )}
           </motion.div>
 
-          {/* Title */}
           <motion.h3
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -265,7 +255,6 @@ const TimelineCard = ({ item, index, total }) => {
             {item.title}
           </motion.h3>
 
-          {/* Description */}
           {item.description && (
             <motion.p
               initial={{ opacity: 0 }}
@@ -280,7 +269,6 @@ const TimelineCard = ({ item, index, total }) => {
             </motion.p>
           )}
 
-          {/* Footer chip */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
@@ -326,10 +314,12 @@ const Timeline = () => {
       .catch(console.log);
   }, []);
 
+  // Real stats only — no more hardcoded "4+ Years" / "5 Projects" fake numbers
+  const ongoingCount = timeline.filter((t) => !t.timeline.to || t.timeline.to === "Present").length;
+
   return (
     <>
       <style>{`
-
         html { scroll-behavior: smooth; }
         *, *::before, *::after { box-sizing: border-box; }
       `}</style>
@@ -339,11 +329,7 @@ const Timeline = () => {
         padding: "44px 28px 60px",
         fontFamily: "'Cabinet Grotesk', sans-serif",
       }}>
-
-        {/* ── Hero header ── */}
         <div style={{ marginBottom: 52, maxWidth: 680 }}>
-
-          {/* Label chip */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -361,7 +347,6 @@ const Timeline = () => {
             }}>CAREER JOURNEY</span>
           </motion.div>
 
-          {/* Big heading with glitch */}
           <motion.h1
             initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -393,8 +378,8 @@ const Timeline = () => {
             Building things, one milestone at a time.
           </motion.p>
 
-          {/* Stats row */}
-          {loaded && (
+          {/* Stats row — only real, computed numbers now */}
+          {loaded && timeline.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -403,8 +388,7 @@ const Timeline = () => {
             >
               {[
                 { label: "Milestones", value: timeline.length, accent: "#22d3ee" },
-                { label: "Years Active", value: 4, accent: "#a78bfa" },
-                { label: "Projects", value: 5, accent: "#f97316" },
+                ...(ongoingCount > 0 ? [{ label: "Ongoing", value: ongoingCount, accent: "#a78bfa" }] : []),
               ].map(s => (
                 <div key={s.label} style={{
                   padding: "10px 18px", borderRadius: 12,
@@ -415,7 +399,7 @@ const Timeline = () => {
                     fontSize: 24, fontWeight: 800, color: s.accent,
                     fontFamily: "'Cabinet Grotesk', sans-serif", lineHeight: 1,
                   }}>
-                    <Counter to={s.value} />+
+                    <Counter to={s.value} />
                   </span>
                   <span style={{
                     fontSize: 9, color: "#3f3f46",
@@ -428,10 +412,7 @@ const Timeline = () => {
           )}
         </div>
 
-        {/* ── Timeline body ── */}
         <div style={{ maxWidth: 680, position: "relative" }}>
-
-          {/* Scroll-progress track */}
           <div style={{
             position: "absolute", left: 27, top: 22, bottom: 0,
             width: 1, background: "#1c1c1f", zIndex: 0,
@@ -443,14 +424,12 @@ const Timeline = () => {
             zIndex: 1, boxShadow: "0 0 8px rgba(34,211,238,0.4)",
           }} />
 
-          {/* Cards */}
           <AnimatePresence>
             {timeline.map((item, i) => (
               <TimelineCard key={item._id} item={item} index={i} total={timeline.length} />
             ))}
           </AnimatePresence>
 
-          {/* End marker */}
           {loaded && (
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}

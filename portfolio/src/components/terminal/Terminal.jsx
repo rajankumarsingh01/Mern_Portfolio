@@ -23,14 +23,22 @@ const Terminal = () => {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const inputRef = useRef(null);
-  const bottomRef = useRef(null);
-  const navigate = useNavigate();
-  const { profile } = useProfile();
-
+   const inputRef = useRef(null);
+   const bottomRef = useRef(null);
+   const navigate = useNavigate();
+   const { profile } = useProfile();
+ 
+  // Command Palette se "Open Terminal" select karne par ye Terminal khol deta hai
   useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 100);
-  }, [open]);
+    const openFromEvent = () => setOpen(true);
+    window.addEventListener("open-terminal", openFromEvent);
+    return () => window.removeEventListener("open-terminal", openFromEvent);
+  }, []);
+
+   useEffect(() => {
+     if (open) setTimeout(() => inputRef.current?.focus(), 100);
+   }, [open]);
+
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
