@@ -60,7 +60,13 @@
       href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,600,700,800&f[]=clash-display@400,500,600,700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- DevMark widget CSS -->
+    <link rel="stylesheet" href="https://devmark-widget.vercel.app/badge.css" />
   </head>
+
+
+  
   <body>
     <noscript>
       <h1>Rajan Kumar Singh — Full Stack MERN Developer</h1>
@@ -71,5 +77,19 @@
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- DevMark badge -->
+    <script src="https://devmark-widget.vercel.app/overlay.js"></script>
+    <script src="https://devmark-widget.vercel.app/badge.js"></script>
+    <script>
+      DevMark.init({
+        tagline: "My personal portfolio",
+        role: "Full Stack MERN Developer",
+        githubUsername: "rajankumarsingh01",
+        available: true,
+        skills: ["React", "Node.js", "Express.js", "MongoDB", "REST APIs"],
+       position: "bottom-left",
+      });
+    </script>
   </body>
 </html>

@@ -9,28 +9,25 @@ import AmbientBackground from "../components/AmbientBackground";
 const MainLayout = () => {
   return (
     <>
-      <a
-        href="#main-content"
+      
+       <a href="#main-content"
         style={{
-          position: "absolute",
-          left: -9999,
-          top: 0,
+          position: "fixed",
+          left: 16,
+          top: -60,
           zIndex: 10000,
-          background: "#16a34a",
-          color: "#fff",
+          background: "#0a0f0d",
+          color: "#4ade80",
           padding: "10px 18px",
           borderRadius: 8,
+          border: "1px solid rgba(74,222,128,0.4)",
           fontFamily: "'JetBrains Mono', monospace",
           fontSize: 13,
           textDecoration: "none",
+          transition: "top 0.2s ease",
         }}
-        onFocus={(e) => {
-          e.currentTarget.style.left = "16px";
-          e.currentTarget.style.top = "16px";
-        }}
-        onBlur={(e) => {
-          e.currentTarget.style.left = "-9999px";
-        }}
+        onFocus={(e) => { e.currentTarget.style.top = "16px"; }}
+        onBlur={(e) => { e.currentTarget.style.top = "-60px"; }}
       >
         Skip to main content
       </a>

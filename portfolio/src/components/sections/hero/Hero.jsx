@@ -223,7 +223,7 @@
 //           </button>
 
 //           {user?.resume?.url && (
-            
+
 //             <a  href={user.resume.url}
 //               target="_blank"
 //               rel="noreferrer"
@@ -430,10 +430,17 @@ const Hero = () => {
       style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 40, alignItems: "center", position: "relative" }}
       className="hero-grid"
     >
-      <style>{`
+         <style>{`
+        .hero-photo-col { max-width: 340px; }
         @media (max-width: 860px) {
           .hero-grid { grid-template-columns: 1fr !important; }
-          .hero-photo-col { order: -1; max-width: 220px; margin: 0 auto 8px; }
+          .hero-photo-col { max-width: 200px !important; margin: 20px auto 0; }
+        }
+        @media (max-width: 420px) {
+          .hero-photo-col { max-width: 170px !important; }
+        }
+        .hero-grid > div {
+          min-width: 0;
         }
       `}</style>
 
@@ -541,7 +548,7 @@ const Hero = () => {
       <motion.div
         variants={itemVariants}
         className="hero-photo-col"
-        style={{ position: "relative", zIndex: 1, aspectRatio: "1 / 1", maxWidth: 340, marginLeft: "auto" }}
+        style={{ position: "relative", zIndex: 1, aspectRatio: "1 / 1", marginLeft: "auto" }}
       >
         <HeroCanvas fallback={<PhotoFallback user={user} />} />
       </motion.div>

@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
@@ -147,7 +137,7 @@ function StatusPill({ time }) {
   );
 }
 
-// ─── Hamburger Button (FIXED) ─────────────────────────────────────────────────
+// ─── Hamburger Button ─────────────────────────────────────────────────────────
 
 function HamburgerButton({ open, onClick }) {
   return (
@@ -231,7 +221,6 @@ function OverlayMenu({ open, onClose, time }) {
           transition={{ duration: 0.52, ease: EASE_IN_OUT }}
           onClick={handleBackdrop}
         >
-          {/* Decorative bg */}
           <div className="ovl-grid"      aria-hidden="true" />
           <div className="ovl-scanline"  aria-hidden="true" />
           <div className="ovl-orb ovl-orb--tr" aria-hidden="true" />
@@ -240,7 +229,6 @@ function OverlayMenu({ open, onClose, time }) {
             <div key={p} className={`cdot cdot--${p}`} aria-hidden="true" />
           ))}
 
-          {/* Close button */}
           <button
             type="button"
             className="ovl-close"
@@ -254,7 +242,6 @@ function OverlayMenu({ open, onClose, time }) {
 
           <div className="ovl-inner">
 
-            {/* Header label */}
             <motion.div
               className="ovl-label"
               initial={{ opacity: 0, y: -8 }}
@@ -266,7 +253,6 @@ function OverlayMenu({ open, onClose, time }) {
               <span className="ovl-label-bar" aria-hidden="true" />
             </motion.div>
 
-            {/* Nav links */}
             <nav className="ovl-links" aria-label="Main navigation">
               {NAV_LINKS.map((item, i) => (
                 <motion.div
@@ -301,7 +287,6 @@ function OverlayMenu({ open, onClose, time }) {
               ))}
             </nav>
 
-            {/* Footer */}
             <motion.footer
               className="ovl-footer"
               initial={{ opacity: 0, y: 14 }}
@@ -326,8 +311,8 @@ function OverlayMenu({ open, onClose, time }) {
               <div className="ovl-footer-right">
                 <div className="ovl-socials">
                   {socials.map((s) => (
-                    <a
-                      key={s.label}
+                    
+                    <a  key={s.label}
                       href={s.href}
                       target="_blank"
                       rel="noreferrer"
@@ -382,13 +367,11 @@ export default function Navbar() {
         transition={{ duration: 0.64, ease: EASE_OUT }}
         className={["nav-header", isScrolled ? "nav-header--scrolled" : ""].join(" ").trim()}
       >
-        {/* Top accent gradient line */}
         <div className="nav-accent" aria-hidden="true" />
 
         <div className="nav-container">
           <div className="nav-inner">
 
-            {/* ── Logo ── */}
             <Link to="/" className="nav-logo" aria-label="Rajan.dev – Home">
               <Magnetic strength={0.2}>
                 <div className="logo-wrap">
@@ -406,7 +389,6 @@ export default function Navbar() {
               </Magnetic>
             </Link>
 
-            {/* ── Desktop Nav ── */}
             <nav className="desk-nav" aria-label="Primary navigation">
               <AnimatePresence>
                 {!isHome && (
@@ -441,7 +423,6 @@ export default function Navbar() {
               <HamburgerButton open={menuOpen} onClick={openMenu} />
             </nav>
 
-            {/* ── Mobile Controls ── */}
             <div className="mob-nav" aria-label="Mobile navigation">
               <AnimatePresence>
                 {!isHome && (
@@ -461,14 +442,12 @@ export default function Navbar() {
                 )}
               </AnimatePresence>
               <ModeToggle />
-              {/* Mobile hamburger uses toggleMenu so it opens AND closes */}
               <HamburgerButton open={menuOpen} onClick={toggleMenu} />
             </div>
 
           </div>
         </div>
 
-        {/* Scrolled page progress indicator */}
         <AnimatePresence>
           {isScrolled && !isHome && (
             <motion.div
@@ -484,7 +463,6 @@ export default function Navbar() {
         </AnimatePresence>
       </motion.header>
 
-      {/* ── Overlay ── */}
       <OverlayMenu open={menuOpen} onClose={closeMenu} time={time} />
     </>
   );
@@ -538,7 +516,6 @@ const CSS = `
   -webkit-backdrop-filter: blur(32px) saturate(180%);
 }
 
-/* Top accent */
 .nav-accent {
   height: 1px;
   background: linear-gradient(
@@ -617,14 +594,23 @@ const CSS = `
   flex-shrink: 0;
 }
 
-/* ── Desktop nav ── */
+/* ── Desktop nav ──
+   Below 1280px: hidden, hamburger takes over (.mob-nav).
+   At 1280px+: full link row shows, hamburger hides.
+   Both rules for BOTH classes live together here so they can never drift apart. */
 .desk-nav {
   display: none;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
-@media (min-width: 1025px) {
+.mob-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (min-width: 1280px) {
   .desk-nav { display: flex; }
+  .mob-nav  { display: none; }
 }
 
 /* ── Desktop link ── */
@@ -633,7 +619,7 @@ const CSS = `
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 6px 3px 8px;
+  padding: 6px 4px 8px;
   text-decoration: none;
   overflow: hidden;
   transition: none;
@@ -763,16 +749,6 @@ const CSS = `
 }
 .hbtn.is-open .hline { background: var(--g); }
 
-/* ── Mobile nav ── */
-.mob-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-@media (min-width: 1025px) {
-  .mob-nav { display: none; }
-}
-
 .mob-back {
   display: inline-flex;
   align-items: center;
@@ -814,7 +790,6 @@ const CSS = `
 .overlay-scroll::-webkit-scrollbar-track { background: transparent; }
 .overlay-scroll::-webkit-scrollbar-thumb { background: var(--g18); border-radius: 2px; }
 
-/* Decorative grid */
 .ovl-grid {
   position: absolute;
   inset: 0;
@@ -825,7 +800,6 @@ const CSS = `
   background-size: 72px 72px;
 }
 
-/* Scanline */
 @keyframes scan { from { top: -2px } to { top: 100% } }
 .ovl-scanline {
   position: absolute;
@@ -836,7 +810,6 @@ const CSS = `
   animation: scan 14s linear infinite;
 }
 
-/* Glow orbs */
 .ovl-orb {
   position: absolute;
   border-radius: 50%;
@@ -853,7 +826,6 @@ const CSS = `
   background: radial-gradient(circle, rgba(57,255,132,0.04) 0%, transparent 68%);
 }
 
-/* Corner dots */
 .cdot {
   position: absolute;
   width: 4px;
@@ -867,7 +839,6 @@ const CSS = `
 .cdot--bl { bottom: 18px; left: 18px; }
 .cdot--br { bottom: 18px; right: 18px; }
 
-/* Close button */
 .ovl-close {
   position: sticky;
   top: 18px;
@@ -892,7 +863,6 @@ const CSS = `
   border-color: var(--g50);
 }
 
-/* Inner layout */
 .ovl-inner {
   position: relative;
   z-index: 10;
@@ -910,7 +880,6 @@ const CSS = `
   .ovl-inner { padding: 88px 68px 52px; }
 }
 
-/* Label */
 .ovl-label {
   display: flex;
   align-items: center;
@@ -930,7 +899,6 @@ const CSS = `
   flex-shrink: 0;
 }
 
-/* Nav links */
 .ovl-links {
   flex: 1;
   display: flex;
@@ -991,7 +959,6 @@ const CSS = `
   flex-shrink: 0;
 }
 
-/* Footer */
 .ovl-footer {
   margin-top: 36px;
   padding-top: 24px;

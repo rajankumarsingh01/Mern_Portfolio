@@ -144,6 +144,7 @@ const TimelineCard = ({ item, index, total }) => {
         transition={SOFT}
         style={{
           flex: 1, marginBottom: 20, marginLeft: 4,
+           minWidth: 0,
           background: "#111113",
           border: `1px solid ${hovered ? (isPresent ? "#22d3ee30" : "#3f3f46") : "#27272a"}`,
           borderRadius: 16,
