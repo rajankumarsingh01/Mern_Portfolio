@@ -1,20 +1,40 @@
-
-
-
-
-
-
-
-
-
-
-
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Heart, Github, Linkedin, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { SITE } from "@/config/site";
 
 const Footer = () => {
+  const devmarkInited = useRef(false);
+
+  // DevMark badge.js index.html me load hoti hai, lekin React render se race
+  // condition bach sakti hai — isliye yahan se, apne hi slot div ke saath, init
+  // karte hain taaki slot DOM me guaranteed maujood ho.
+  useEffect(() => {
+    if (devmarkInited.current) return;
+
+    let attempts = 0;
+    const tryInit = () => {
+      attempts += 1;
+      if (window.DevMark?.init) {
+        window.DevMark.init({
+          githubUsername: "rajankumarsingh01",
+          tagline: "My personal portfolio",
+          role: "Full Stack MERN Developer",
+          available: true,
+          skills: ["React", "Node.js", "Express.js", "MongoDB", "REST APIs"],
+          container: "#devmark-footer-slot",
+        });
+        devmarkInited.current = true;
+      } else if (attempts < 10) {
+        setTimeout(tryInit, 300); // badge.js abhi load ho raha ho to retry
+      } else {
+        console.warn("DevMark script load nahi hui — badge skip ho gaya.");
+      }
+    };
+
+    tryInit();
+  }, []);
+
   return (
     <footer className="mt-24 w-full border-t border-border relative">
 
@@ -38,7 +58,7 @@ const Footer = () => {
         {/* Social Icons */}
         <div className="flex items-center gap-6">
           <a
-                        href={SITE.github}
+            href={SITE.github}
             target="_blank"
             rel="noopener noreferrer"
             className="group p-3 rounded-full border border-border 
@@ -71,6 +91,9 @@ const Footer = () => {
             Rajan Kumar Singh
           </span>
         </div>
+
+        {/* DevMark badge — inline, sits as normal footer content */}
+        <div id="devmark-footer-slot" className="flex items-center justify-center"></div>
 
         {/* Divider */}
         <div className="w-full h-px bg-border"></div>
